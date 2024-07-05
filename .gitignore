@@ -1,0 +1,3 @@
+build/bin
+frontend/dist
+frontend/node_modules
