@@ -1,12 +1,12 @@
 <script>
-  import logo from './assets/images/logo-universal.png'
-  import {Greet} from '../wailsjs/go/main/App.js'
+  import logo from '$assets/images/logo-universal.png';
+  import { Greet } from '$wails/go/main/App';
 
-  let resultText = "Please enter your name below 👇"
-  let name
+  let resultText = "Please enter your name below 👇";
+  let name;
 
   function greet() {
-    Greet(name).then(result => resultText = result)
+    Greet(name).then(result => resultText = result);
   }
 </script>
 
