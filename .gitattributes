@@ -214,3 +214,10 @@ Procfile          text
 # Prevents massive diffs from built files
 dist/*            binary
 
+## Wails 
+
+# Generated frontend files
+frontend/wailsjs/**/*.json    text eol=lf
+frontend/wailsjs/**/*.ts      text eol=lf
+frontend/wailsjs/**/*.js      text eol=lf
+
