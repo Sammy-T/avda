@@ -1,6 +1,7 @@
 <script>
+    import Navbar from '$lib/components/Navbar.svelte';
     import Footer from '$lib/components/Footer.svelte';
-import Navbar from '$lib/components/Navbar.svelte';
+    import EntryList from '$lib/components/EntryList.svelte';
 </script>
 
 <header>
@@ -9,7 +10,7 @@ import Navbar from '$lib/components/Navbar.svelte';
 </header>
 
 <main>
-    <h1>Hello</h1>
+    <EntryList />
 </main>
 
 <Footer />
@@ -26,5 +27,8 @@ import Navbar from '$lib/components/Navbar.svelte';
 
     main {
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
     }
 </style>

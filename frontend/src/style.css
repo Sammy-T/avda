@@ -10,3 +10,8 @@ body {
 footer svg {
     max-height: 18px;
 }
+
+.entry > svg {
+    max-height: 50px;
+    max-width: 50px;
+}
