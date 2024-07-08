@@ -4,7 +4,10 @@
 
         <h5>Select vault file</h5>
         <form>
-            <input type="file" />
+            <div class="file-input">
+                <button class="secondary">Choose File</button>
+                No file chosen
+            </div>
 
             <input type="password" name="password" placeholder="Password" />
             <small>Leave blank for unencrypted vault files.</small>
@@ -29,6 +32,15 @@
 
     h1, h5 {
         font-weight: 400;
+    }
+
+    .file-input {
+        margin-bottom: calc(var(--pico-spacing) * 1);
+    }
+
+    .file-input > button {
+        padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
+        margin-right: calc(var(--pico-spacing) * 0.5);
     }
 
     form > button {
