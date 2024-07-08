@@ -4,18 +4,18 @@
     let entries = [];
 </script>
 
-<div class="list">
-    {#if entries.length === 0}
-        <div id="empty">
-            <p>No entries.</p>
-            <button>Open Vault</button>
-        </div>
-    {:else}
+{#if entries.length === 0}
+    <div id="empty">
+        <p>No entries.</p>
+        <button>Open Vault</button>
+    </div>
+{:else}
+    <div class="list">
         {#each entries as entry (entry.uuid) }
             <EntryItem />
         {/each}
-    {/if}
-</div>
+    </div>
+{/if}
 
 <style>
     .list {
@@ -23,14 +23,18 @@
         padding: calc(var(--pico-spacing) * 1.5);
         overflow-y: auto;
         display: flex;
-        flex-wrap: wrap;
+        align-content: flex-start;
         align-items: flex-start;
+        flex-wrap: wrap;
         gap: calc(var(--pico-spacing) * 2);
     }
 
     #empty {
-        width: 100%;
+        height: 100%;
         text-align: center;
         align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
