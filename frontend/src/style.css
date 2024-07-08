@@ -6,3 +6,7 @@ body {
     flex-direction: column;
     overscroll-behavior: none;
 }
+
+footer svg {
+    max-height: 18px;
+}

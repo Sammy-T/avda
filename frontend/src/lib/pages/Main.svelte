@@ -1,5 +1,6 @@
 <script>
-    import Navbar from '$lib/components/Navbar.svelte';
+    import Footer from '$lib/components/Footer.svelte';
+import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
 <header>
@@ -11,9 +12,7 @@
     <h1>Hello</h1>
 </main>
 
-<footer>
-    footer
-</footer>
+<Footer />
 
 <style>
     header {
