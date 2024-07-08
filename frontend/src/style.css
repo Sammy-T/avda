@@ -5,6 +5,8 @@ body {
     display: flex;
     flex-direction: column;
     overscroll-behavior: none;
+    background-image: url('bg.webp');
+    background-size: cover;
 }
 
 footer svg {

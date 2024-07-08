@@ -2,18 +2,18 @@
     import closeFileIc from '$assets/images/file-minus.svg?raw';
 </script>
 
-<nav>
+<nav data-theme="dark">
     <ul>
         <li><strong>avdap</strong></li>
     </ul>
 
     <ul class="filename">
-        <li><a href="##">filename</a></li>
+        <li><a href="##" class="contrast">filename</a></li>
     </ul>
 
     <ul>
         <li>
-            <a href="##" data-tooltip="Close Vault" data-placement="bottom">
+            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom">
                 {@html closeFileIc}
             </a>
         </li>
@@ -28,6 +28,14 @@
         see: https://github.com/picocss/pico/issues/549
         */
         padding: 0 calc(var(--pico-nav-element-spacing-horizontal) * 4);
+    }
+
+    li strong {
+        color: var(--pico-contrast);
+    }
+
+    a:hover {
+        color: var(--pico-primary-background);
     }
 
     .filename a:hover {

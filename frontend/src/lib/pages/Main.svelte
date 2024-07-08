@@ -17,7 +17,7 @@
 
 <style>
     header {
-        background-color: rgba(0, 0, 0, 0.264);
+        background-color: rgba(56, 83, 122, 0.574);
     }
 
     header > progress {

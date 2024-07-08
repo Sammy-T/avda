@@ -2,11 +2,11 @@
     import githubIc from '$assets/images/brand-github.svg?raw';
 </script>
 
-<footer>
+<footer data-theme="dark">
     <nav>
         <ul>
             <li>
-                <a href="##" class="secondary" data-tooltip="GitHub">
+                <a href="##" class="contrast" data-tooltip="GitHub">
                     {@html githubIc}
                 </a>
             </li>
@@ -20,11 +20,15 @@
 
 <style>
     footer {
-        border-top: 3px solid var(--pico-secondary);
+        border-top: 3px solid var(--pico-contrast);
     }
 
     footer nav li {
         padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
+    }
+
+    footer nav li small {
+        color: var(--pico-contrast);
     }
 
     nav {
