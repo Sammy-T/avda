@@ -17,3 +17,7 @@ footer svg {
     max-height: 50px;
     max-width: 50px;
 }
+
+dialog {
+    background-color: rgb(3, 4, 4, 0.75);
+}
