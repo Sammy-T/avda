@@ -48,7 +48,7 @@
 
         <form on:submit|preventDefault={onSubmit}>
             <div class="file-input">
-                <button class="secondary" on:click|preventDefault={select}>
+                <button type="button" class="secondary" on:click|preventDefault={select}>
                     Choose File
                 </button>
 
