@@ -85,3 +85,8 @@ func (a *App) OpenVault(filePath string, password string) Response {
 
 	return response
 }
+
+// CloseVault removes the vault data.
+func (a *App) CloseVault() {
+	a.vaultData = nil
+}

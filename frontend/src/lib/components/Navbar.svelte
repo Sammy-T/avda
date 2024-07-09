@@ -1,5 +1,6 @@
 <script>
     import closeFileIc from '$assets/images/file-minus.svg?raw';
+    import { closeFile } from '$lib/util';
 </script>
 
 <nav data-theme="dark">
@@ -8,12 +9,17 @@
     </ul>
 
     <ul class="filename">
-        <li><a href="##" class="contrast">filename</a></li>
+        <li>
+            <a href="##" class="contrast" on:click|preventDefault={closeFile}>
+                filename
+            </a>
+        </li>
     </ul>
 
     <ul>
         <li>
-            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom">
+            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" 
+                on:click|preventDefault={closeFile}>
                 {@html closeFileIc}
             </a>
         </li>

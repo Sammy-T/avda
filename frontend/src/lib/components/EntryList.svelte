@@ -1,5 +1,6 @@
 <script>
     import EntryItem from './EntryItem.svelte';
+    import { closeFile } from '$lib/util';
 
     let entries = [];
 </script>
@@ -7,7 +8,7 @@
 {#if entries.length === 0}
     <div id="empty">
         <p>No entries.</p>
-        <button>Open Vault</button>
+        <button on:click={closeFile}>Open Vault</button>
     </div>
 {:else}
     <div class="list">
