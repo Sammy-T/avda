@@ -105,10 +105,11 @@ func (a *App) watchOTPs() {
 	for a.vaultData != nil {
 		ttn := avdu.GetTTN()
 
-		if ttn < 1000 {
+		if ttn > 29000 {
 			a.updateOTPs()
 		}
-		log.Println(ttn)
+
+		runtime.EventsEmit(a.ctx, "onTimeUpdated", ttn)
 
 		time.Sleep(1000 * time.Millisecond)
 	}
@@ -134,6 +135,5 @@ func (a *App) updateOTPs() {
 		entryCodes = append(entryCodes, entryCode)
 	}
 
-	log.Println(entryCodes)
 	runtime.EventsEmit(a.ctx, "onCodesUpdated", entryCodes)
 }
