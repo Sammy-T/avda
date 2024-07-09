@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/sammy-t/avdu"
 	"github.com/sammy-t/avdu/vault"
@@ -58,6 +59,7 @@ func (a *App) SelectVault() Response {
 
 // OpenVault reads the vault file at the provided path,
 // sets the vault data on the app struct,
+// starts OTP watching in a goroutine,
 // and returns whether the read was successful.
 func (a *App) OpenVault(filePath string, password string) Response {
 	var vaultData *vault.Vault
@@ -83,10 +85,55 @@ func (a *App) OpenVault(filePath string, password string) Response {
 		a.vaultData = vaultData
 	}
 
+	go a.watchOTPs()
+
 	return response
 }
 
 // CloseVault removes the vault data.
 func (a *App) CloseVault() {
 	a.vaultData = nil
+}
+
+// watchOTPs loops through updating the OTPs
+// until the current vault data is removed.
+//
+// NOTE: This is intended to be called as a goroutine.
+func (a *App) watchOTPs() {
+	a.updateOTPs()
+
+	for a.vaultData != nil {
+		ttn := avdu.GetTTN()
+
+		if ttn < 1000 {
+			a.updateOTPs()
+		}
+		log.Println(ttn)
+
+		time.Sleep(1000 * time.Millisecond)
+	}
+}
+
+// updateOTPs loads the OTPs for the current vault data
+// and emits an "onCodesUpdated" event containing
+// an array of each entry with its current OTP.
+func (a *App) updateOTPs() {
+	otps, err := avdu.GetOTPs(a.vaultData)
+	if err != nil {
+		log.Println(err)
+	}
+
+	var entryCodes []EntryCode
+
+	for _, entry := range a.vaultData.Db.Entries {
+		entryCode := EntryCode{
+			Entry: entry,
+			Code:  fmt.Sprintf("%v", otps[entry.Uuid]),
+		}
+
+		entryCodes = append(entryCodes, entryCode)
+	}
+
+	log.Println(entryCodes)
+	runtime.EventsEmit(a.ctx, "onCodesUpdated", entryCodes)
 }

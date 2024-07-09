@@ -1,19 +1,22 @@
 <script>
     import EntryItem from './EntryItem.svelte';
     import { closeFile } from '$lib/util';
+    import { EventsOn } from '$wails/runtime/runtime';
 
-    let entries = [];
+    let items = [];
+
+    EventsOn('onCodesUpdated', (entryCodes) => items = entryCodes);
 </script>
 
-{#if entries.length === 0}
+{#if items.length === 0}
     <div id="empty">
         <p>No entries.</p>
         <button on:click={closeFile}>Open Vault</button>
     </div>
 {:else}
     <div class="list">
-        {#each entries as entry (entry.uuid) }
-            <EntryItem />
+        {#each items as item (item.entry.uuid) }
+            <EntryItem {item} />
         {/each}
     </div>
 {/if}

@@ -1,14 +1,18 @@
 <script>
     import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
+
+    export let item;
+
+    let entry = item.entry;
 </script>
 
 <article class="entry">
     {@html blankImgIc}
 
     <div class="info">
-        <p><strong>issuer</strong> (name)</p>
-        <h2>000 000</h2>
+        <p><strong>{entry.issuer ?? 'issuer'}</strong> ({entry.name ?? 'name'})</p>
+        <h2>{item.code ?? '000 000'}</h2>
     </div>
 
     <a href="##">
