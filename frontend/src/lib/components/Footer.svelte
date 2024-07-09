@@ -1,12 +1,26 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
+    import { BrowserOpenURL } from '$wails/runtime/runtime';
+
+/**
+ * Captures a link click event and opens the externa url
+ * in the default browser.
+ * @param event {Event}
+ */
+function openExtUrl(event) {
+    // @ts-ignore
+    const url = event.currentTarget.href;
+    BrowserOpenURL(url);
+}
 </script>
 
 <footer data-theme="dark">
     <nav>
         <ul>
             <li>
-                <a href="##" class="contrast" data-tooltip="GitHub">
+                <!-- TODO: Add repo link -->
+                <a href="https://github.com" class="contrast" data-tooltip="GitHub" 
+                    on:click|preventDefault={openExtUrl}>
                     {@html githubIc}
                 </a>
             </li>
