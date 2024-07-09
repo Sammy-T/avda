@@ -1,6 +1,6 @@
 <dialog open>
     <article>
-        <h1>avdap</h1>
+        <h1>avda</h1>
 
         <h5>Select vault file</h5>
         <form>

@@ -1,4 +1,4 @@
-module github.com/sammy-t/avdap
+module github.com/sammy-t/avda
 
 go 1.21
 
