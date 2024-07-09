@@ -1,5 +1,6 @@
 <script>
     import closeFileIc from '$assets/images/file-minus.svg?raw';
+    import { vaultPath } from '$lib/stores';
     import { closeFile } from '$lib/util';
 </script>
 
@@ -11,7 +12,7 @@
     <ul class="filename">
         <li>
             <a href="##" class="contrast" on:click|preventDefault={closeFile}>
-                filename
+                {$vaultPath?.split(/[\\/]/).at(-1) ?? 'filename'}
             </a>
         </li>
     </ul>
