@@ -1,12 +1,60 @@
+<script>
+    import { OpenVault, SelectVault } from '$wails/go/main/App';
+    import { vaultPath } from '$lib/stores';
+
+    let selected;
+
+    async function select() {
+        const resp = await SelectVault();
+        
+        if(resp.status !== 'success' || resp.data === '') {
+            console.warn('No file selected.', resp);
+            return;
+        }
+
+        selected = resp.data;
+    }
+
+    /**
+     * Passes the filepath and password to the Go backend
+     * to attempt to read the vault file.
+     * @param event {SubmitEvent}
+     */
+    async function onSubmit(event) {
+        // @ts-ignore
+        const formData = new FormData(event.target);
+
+        const filepath = formData.get('filepath');
+        const password = formData.get('password');
+
+        if(filepath === '') return;
+
+        const resp = await OpenVault(filepath.toString(), password.toString());
+
+        if(resp.status !== 'success') {
+            console.error(resp.message);
+            return;
+        }
+
+        $vaultPath = filepath;
+    }
+</script>
+
 <dialog open>
     <article>
         <h1>avda</h1>
 
         <h5>Select vault file</h5>
-        <form>
+
+        <form on:submit|preventDefault={onSubmit}>
             <div class="file-input">
-                <button class="secondary">Choose File</button>
-                No file chosen
+                <button class="secondary" on:click|preventDefault={select}>
+                    Choose File
+                </button>
+
+                {selected?.split(/[\\/]/).at(-1) ?? 'No file chosen'}
+
+                <input type="hidden" name="filepath" bind:value={selected} />
             </div>
 
             <input type="password" name="password" placeholder="Password" />

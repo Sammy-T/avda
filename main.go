@@ -8,6 +8,12 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+type Response struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Data    any    `json:"data"`
+}
+
 //go:embed all:frontend/dist
 var assets embed.FS
 
