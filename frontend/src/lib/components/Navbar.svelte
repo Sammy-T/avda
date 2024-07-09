@@ -35,6 +35,7 @@
         see: https://github.com/picocss/pico/issues/549
         */
         padding: 0 calc(var(--pico-nav-element-spacing-horizontal) * 4);
+        overflow-x: clip;
     }
 
     li strong {

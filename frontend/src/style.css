@@ -1,7 +1,10 @@
 @import '@picocss/pico/css/pico.min.css';
 
+html, body {
+    height: 100%;
+}
+
 body {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     overscroll-behavior: none;
