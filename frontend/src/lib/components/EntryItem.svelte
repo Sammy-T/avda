@@ -7,9 +7,21 @@
 
     let entry = item.entry;
 
+    let copyMsg = '';
+
     async function copyCode() {
         const success = await ClipboardSetText(item.code);
-        if(!success) console.error('Copy to clipboard failed.');
+
+        if(!success) {
+            console.error('Copy to clipboard failed.');
+            copyMsg = 'copy failed';
+        } else {
+            copyMsg = 'copied';
+        }
+    }
+
+    function resetToolTip() {
+        copyMsg = '';
     }
 </script>
 
@@ -21,9 +33,15 @@
         <h2>{item.code}</h2>
     </div>
 
-    <button class="secondary" on:click={copyCode}>
-        {@html copyIc}
-    </button>
+    {#if copyMsg}
+        <button class="secondary" on:click={copyCode} on:mouseleave={resetToolTip} data-tooltip={copyMsg}>
+            {@html copyIc}
+        </button>
+    {:else}
+        <button class="secondary" on:click={copyCode}>
+            {@html copyIc}
+        </button>
+    {/if}
 </article>
 
 <style>
