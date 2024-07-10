@@ -9,5 +9,8 @@
   "author": {
     "name": "Sammy-T",
     "email": "cyam9019@gmail.com"
+  },
+  "info": {
+    "productVersion": "1.0.0"
   }
 }
