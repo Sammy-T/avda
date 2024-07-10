@@ -24,3 +24,7 @@ footer svg {
 dialog {
     background-color: rgb(3, 4, 4, 0.75);
 }
+
+.warning {
+    color: var(--pico-form-element-invalid-border-color);
+}

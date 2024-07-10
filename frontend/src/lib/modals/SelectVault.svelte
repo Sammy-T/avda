@@ -3,8 +3,11 @@
     import { vaultPath } from '$lib/stores';
 
     let selected;
+    let respError = false;
 
     async function select() {
+        respError = false;
+
         const resp = await SelectVault();
         
         if(resp.status !== 'success' || resp.data === '') {
@@ -21,6 +24,8 @@
      * @param event {SubmitEvent}
      */
     async function onSubmit(event) {
+        respError = false;
+
         // @ts-ignore
         const formData = new FormData(event.target);
 
@@ -33,6 +38,7 @@
 
         if(resp.status !== 'success') {
             console.error(resp.message);
+            respError = true;
             return;
         }
 
@@ -59,6 +65,10 @@
 
             <input type="password" name="password" placeholder="Password" />
             <small>Leave blank for unencrypted vault files.</small>
+
+            {#if respError } 
+                <small class="warning">Unable to open vault.</small>
+            {/if}
 
             <button>Unlock</button>
         </form>
