@@ -1,0 +1,101 @@
+name: Build/Release
+
+on:
+  workflow_dispatch: # Allow manual triggering
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on pushing version tags
+
+jobs:
+  # Build the app
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - os: macos-latest
+            os-base: mac
+          - os: ubuntu-latest
+            os-base: linux
+          - os: windows-latest
+            os-base: windows
+    
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4.1.7
+    
+    - name: Install Linux dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get update && sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4.0.3
+      
+      # Pre-install & Pre-build the frontend to make sure the 
+      # necessary frontend resources are available when the Wails build starts
+    - name: Pre-install frontend
+      working-directory: frontend
+      run: npm install
+    
+    - name: Pre-build frontend
+      working-directory: frontend
+      run: npm run build
+
+    - name: Set up Go
+      uses: actions/setup-go@v5.0.2
+      with:
+        go-version-file: 'go.mod'
+    
+    - name: Install Wails CLI
+      run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      
+    - name: Check Wails requirements
+      run: wails doctor
+      
+    - name: Read output file name from wails.json
+      id: filename
+      uses: notiz-dev/github-action-json-property@v0.2.0
+      with:
+        path: 'wails.json'
+        prop_path: 'outputfilename'
+        
+    - name: Create release directory
+      run: mkdir -p release
+
+    - name: Build Wails app
+      run: wails build
+      
+    - name: Zip release file
+      uses: vimtor/action-zip@v1.2
+      with:
+        files: build/bin
+        recursive: false
+        dest: release/${{ steps.filename.outputs.prop }}_${{ matrix.os-base }}.zip
+      
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        name: ${{ steps.filename.outputs.prop }}_${{ matrix.os-base }}
+        path: release/
+        retention-days: 7
+
+  
+  # Create a release
+  release:
+    if: startsWith(github.ref_name, 'v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v4.1.8
+      with:
+        path: release/
+        merge-multiple: true
+
+    - name: Release
+      uses: softprops/action-gh-release@v2.0.6
+      with:
+        name: ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name }}
+        draft: true
+        files: release/*
