@@ -95,13 +95,14 @@
     .file-input {
         margin-bottom: calc(var(--pico-spacing) * 1);
         display: flex;
-        align-items: baseline;
-        gap: calc(var(--pico-spacing) * 0.25);
+        align-items: center;
+        gap: calc(var(--pico-spacing) * 1);
     }
 
     .file-input > button {
         padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
-        margin-right: calc(var(--pico-spacing) * 0.5);
+        margin: 0;
+        text-wrap: nowrap;
     }
 
     .file-input > p {
