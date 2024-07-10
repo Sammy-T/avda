@@ -1,16 +1,40 @@
-# README
+# avda
 
-## About
+Aegis Vault Desktop App is a desktop application for viewing one-time passwords generated from an [Aegis](https://github.com/beemdevelopment/Aegis) vault's backup or export file. 
 
-This is the official Wails Svelte template.
+The app is built with [Wails](https://github.com/wailsapp/wails) and [Svelte](https://github.com/sveltejs/svelte) and uses the [avdu](https://github.com/Sammy-T/avdu) module for OTP handling.
 
-## Live Development
+> [!NOTE]
+> I built this app as a helper utility that can be used for convenient OTP access while on your personal desktop. While it does feature some of the basic functionality of Aegis, it isn't intended to be a standalone 2FA app.
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+## Getting started
 
-## Building
+Just run the binary matching your OS and open your local vault file.
 
-To build a redistributable, production mode package, use `wails build`.
+> [!NOTE]
+> The application is not code signed so a warning may pop up when running it.
+
+## Development
+
+Requirements:
+
+- Node.js
+- Go
+- Wails
+
+Check <https://wails.io/docs/gettingstarted/installation> for OS specific requirements.
+
+### Run the dev environment
+
+```bash
+wails dev
+```
+
+### Build the app
+
+```bash
+wails build
+```
+
+This will build the app binary to the `build/bin` directory.
+
