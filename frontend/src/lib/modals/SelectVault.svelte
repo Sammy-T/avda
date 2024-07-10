@@ -52,7 +52,7 @@
                     Choose File
                 </button>
 
-                {selected?.split(/[\\/]/).at(-1) ?? 'No file chosen'}
+                <p>{selected?.split(/[\\/]/).at(-1) ?? 'No file chosen'}</p>
 
                 <input type="hidden" name="filepath" bind:value={selected} />
             </div>
@@ -84,11 +84,18 @@
 
     .file-input {
         margin-bottom: calc(var(--pico-spacing) * 1);
+        display: flex;
+        align-items: baseline;
+        gap: calc(var(--pico-spacing) * 0.25);
     }
 
     .file-input > button {
         padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
         margin-right: calc(var(--pico-spacing) * 0.5);
+    }
+
+    .file-input > p {
+        margin: 0;
     }
 
     form > button {
