@@ -26,11 +26,13 @@
 </script>
 
 <article class="entry">
-    {@html blankImgIc}
-
     <div class="info">
-        <p><strong>{entry.issuer}</strong> ({entry.name})</p>
-        <h2>{item.code}</h2>
+        {@html blankImgIc}
+
+        <div class="codeInfo">
+            <p><strong>{entry.issuer}</strong> ({entry.name})</p>
+            <h2>{item.code}</h2>
+        </div>
     </div>
 
     {#if copyMsg}
@@ -46,7 +48,7 @@
 
 <style>
     article {
-        width: 18rem;
+        width: 25rem;
         margin: 0;
         display: flex;
         justify-content: space-between;
@@ -54,10 +56,16 @@
     }
 
     .info {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--pico-spacing) * 0.75);
+    }
+
+    .codeInfo {
         min-width: 9rem;
     }
 
-    .info > * {
+    .codeInfo > * {
         margin: 0;
     }
 
