@@ -18,8 +18,7 @@ function openExtUrl(event) {
     <nav>
         <ul>
             <li>
-                <!-- TODO: Add repo link -->
-                <a href="https://github.com" class="contrast" data-tooltip="GitHub" 
+                <a href="https://github.com/Sammy-T/avda" class="contrast" data-tooltip="GitHub" 
                     on:click|preventDefault={openExtUrl}>
                     {@html githubIc}
                 </a>
