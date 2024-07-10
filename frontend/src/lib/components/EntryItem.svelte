@@ -11,8 +11,8 @@
     {@html blankImgIc}
 
     <div class="info">
-        <p><strong>{entry.issuer ?? 'issuer'}</strong> ({entry.name ?? 'name'})</p>
-        <h2>{item.code ?? '000 000'}</h2>
+        <p><strong>{entry.issuer}</strong> ({entry.name})</p>
+        <h2>{item.code}</h2>
     </div>
 
     <a href="##">

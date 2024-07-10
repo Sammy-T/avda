@@ -83,9 +83,9 @@ func (a *App) OpenVault(filePath string, password string) Response {
 		response.Status = "success"
 
 		a.vaultData = vaultData
-	}
 
-	go a.watchOTPs()
+		go a.watchOTPs()
+	}
 
 	return response
 }
