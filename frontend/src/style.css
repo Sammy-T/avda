@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     overscroll-behavior: none;
-    background-image: url('bg.webp');
+    background-image: url('/src/assets/images/bg.webp');
     background-size: cover;
 }
 
