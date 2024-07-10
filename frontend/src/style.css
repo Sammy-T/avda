@@ -16,7 +16,7 @@ footer svg {
     max-height: 18px;
 }
 
-.entry .info > svg {
+.entry .info > svg, .entry .info > img {
     max-height: 50px;
     max-width: 50px;
 }

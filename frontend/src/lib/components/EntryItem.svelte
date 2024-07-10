@@ -27,7 +27,11 @@
 
 <article class="entry">
     <div class="info">
-        {@html blankImgIc}
+        {#if entry.icon}
+            <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
+        {:else}
+            {@html blankImgIc}
+        {/if}
 
         <div class="codeInfo">
             <p><strong>{entry.issuer}</strong> ({entry.name})</p>
@@ -56,13 +60,10 @@
     }
 
     .info {
+        flex-grow: 1;
         display: flex;
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
-    }
-
-    .codeInfo {
-        min-width: 9rem;
     }
 
     .codeInfo > * {
