@@ -1,10 +1,16 @@
 <script>
     import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
+    import { ClipboardSetText } from '$wails/runtime/runtime';
 
     export let item;
 
     let entry = item.entry;
+
+    async function copyCode() {
+        const success = await ClipboardSetText(item.code);
+        if(!success) console.error('Copy to clipboard failed.');
+    }
 </script>
 
 <article class="entry">
@@ -15,9 +21,9 @@
         <h2>{item.code}</h2>
     </div>
 
-    <a href="##">
+    <button class="secondary" on:click={copyCode}>
         {@html copyIc}
-    </a>
+    </button>
 </article>
 
 <style>
@@ -35,5 +41,9 @@
 
     .info > * {
         margin: 0;
+    }
+
+    button {
+        padding: calc(var(--pico-form-element-spacing-vertical) * 0.3) calc(var(--pico-form-element-spacing-horizontal) * 0.3);
     }
 </style>
