@@ -7,6 +7,9 @@ The app is built with [Wails](https://github.com/wailsapp/wails) and [Svelte](ht
 > [!NOTE]
 > I built this app as a helper utility that can be used for convenient OTP access while on your personal desktop. While it does feature some of the basic functionality of Aegis, it isn't intended to be a standalone 2FA app.
 
+> [!NOTE]
+> - HOTP is not implemented due to syncing concerns.
+
 ![avda_screen_01](https://github.com/Sammy-T/avda/assets/22360092/c2181247-4416-4557-a381-f1a7b3e406a5)
 
 ## Getting started
