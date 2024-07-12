@@ -12,6 +12,11 @@ body {
     background-size: cover;
 }
 
+nav svg {
+    max-height: 24px;
+    max-width: 24px;
+}
+
 footer svg {
     max-height: 18px;
 }
@@ -23,6 +28,11 @@ footer svg {
 
 dialog {
     background-color: rgb(3, 4, 4, 0.75);
+}
+
+h1 svg {
+    max-height: 64px;
+    max-width: 64px;
 }
 
 .warning {
