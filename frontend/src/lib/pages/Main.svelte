@@ -2,6 +2,7 @@
     import Navbar from '$lib/components/Navbar.svelte';
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
+    import { search } from '$lib/stores';
     import { tweened } from 'svelte/motion';
     import { writable } from 'svelte/store';
     import { setContext } from 'svelte';
@@ -13,9 +14,6 @@
 
     const displaySearch = writable(false);
     setContext('displaySearch', displaySearch);
-
-    const search = writable('');
-    setContext('search', search);
 
     $: if($displaySearch) searchInput?.focus();
 

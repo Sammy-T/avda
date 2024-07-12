@@ -1,4 +1,4 @@
-import { vaultPath } from './stores';
+import { vaultPath, search } from './stores';
 import { CloseVault } from '$wails/go/main/App';
 
 /**
@@ -9,4 +9,5 @@ export async function closeFile() {
     await CloseVault();
 
     vaultPath.set(null);
+    search.set('');
 }
