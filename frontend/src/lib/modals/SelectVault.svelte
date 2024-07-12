@@ -1,4 +1,5 @@
 <script>
+    import avdaIc from '$assets/images/avda.svg?raw';
     import { OpenVault, SelectVault } from '$wails/go/main/App';
     import { vaultPath } from '$lib/stores';
 
@@ -48,7 +49,7 @@
 
 <dialog open>
     <article>
-        <h1>avda</h1>
+        <h1>{@html avdaIc} avda</h1>
 
         <h5>Select vault file</h5>
 
