@@ -51,7 +51,7 @@
     <progress max="30000" value={$countdown} />
 
     {#if $displaySearch}
-        <form on:submit|preventDefault={onSearchSubmit}>
+        <form spellcheck="false" on:submit|preventDefault={onSearchSubmit}>
             <input type="search" name="search" placeholder="Search" autocomplete="off" 
                 on:keyup={onSearchInputKey} bind:value={$search} bind:this={searchInput} />
         </form>
