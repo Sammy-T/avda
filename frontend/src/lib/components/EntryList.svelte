@@ -1,12 +1,10 @@
 <script>
     import EntryItem from './EntryItem.svelte';
+    import { search } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
-    import { getContext } from 'svelte';
 
     let items = [];
-
-    const search = getContext('search');
 
     $: filteredItems = items.filter(item => {
         const searchRE = new RegExp($search, 'i');
