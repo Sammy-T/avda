@@ -3,9 +3,33 @@
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
     import { tweened } from 'svelte/motion';
+    import { writable } from 'svelte/store';
+    import { setContext } from 'svelte';
     import { EventsOn } from '$wails/runtime/runtime';
 
     const countdown = tweened(30000);
+
+    let searchInput;
+
+    const displaySearch = writable(false);
+    setContext('displaySearch', displaySearch);
+
+    const search = writable('');
+    setContext('search', search);
+
+    $: if($displaySearch) searchInput?.focus();
+
+    function onSearchSubmit() {
+        $displaySearch = false;
+    }
+
+    /**
+     * Responds to key events on the search input.
+     * @param event {KeyboardEvent}
+     */
+    function onSearchInputKey(event) {
+        if(event.key === 'Escape') $displaySearch = false;
+    }
 
     /**
      * Updates the tweened store for the countdown.
@@ -25,6 +49,13 @@
 <header>
     <Navbar />
     <progress max="30000" value={$countdown} />
+
+    {#if $displaySearch}
+        <form on:submit|preventDefault={onSearchSubmit}>
+            <input type="search" name="search" placeholder="Search" autocomplete="off" 
+                on:keyup={onSearchInputKey} bind:value={$search} bind:this={searchInput} />
+        </form>
+    {/if}
 </header>
 
 <main>
@@ -47,6 +78,25 @@
     header > progress[value]::-webkit-progress-value {
         transition: none;
         -webkit-transition: none;
+    }
+
+    header > form {
+        position: absolute;
+        width: 100%;
+        padding: calc(var(--pico-spacing) * 0.5);
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    header > form > * {
+        width: auto;
+        margin: 0;
+        pointer-events: auto;
+    }
+
+    header > form > input {
+        height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 1 + var(--pico-border-width)* 2);
     }
 
     main {
