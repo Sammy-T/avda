@@ -12,6 +12,11 @@ body {
     background-size: cover;
 }
 
+nav svg {
+    max-height: 24px;
+    max-width: 24px;
+}
+
 footer svg {
     max-height: 18px;
 }

@@ -1,4 +1,5 @@
 <script>
+    import avdaIc from '$assets/images/avda.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
     import { vaultPath } from '$lib/stores';
     import { closeFile } from '$lib/util';
@@ -6,7 +7,10 @@
 
 <nav data-theme="dark">
     <ul>
-        <li><strong>avda</strong></li>
+        <li>
+            {@html avdaIc}
+            <strong>avda</strong>
+        </li>
     </ul>
 
     <ul class="filename">
