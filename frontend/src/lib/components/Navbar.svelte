@@ -1,8 +1,16 @@
 <script>
     import avdaIc from '$assets/images/avda.svg?raw';
+    import searchIc from '$assets/images/search.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
     import { vaultPath } from '$lib/stores';
     import { closeFile } from '$lib/util';
+    import { getContext } from 'svelte';
+
+    const displaySearch = getContext('displaySearch');
+
+    function toggleSearch() {
+        $displaySearch = !$displaySearch;
+    }
 </script>
 
 <nav data-theme="dark">
@@ -22,6 +30,12 @@
     </ul>
 
     <ul>
+        <li>
+            <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom"
+                on:click|preventDefault={toggleSearch}>
+                {@html searchIc}
+            </a>
+        </li>
         <li>
             <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" 
                 on:click|preventDefault={closeFile}>
