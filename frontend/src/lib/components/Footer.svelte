@@ -26,7 +26,7 @@ function openExtUrl(event) {
         </ul>
 
         <ul>
-            <li><small>v1.1.0</small></li>
+            <li><small>v1.2.0</small></li>
         </ul>
     </nav>
 </footer>
