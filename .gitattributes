@@ -144,7 +144,7 @@ Procfile          text
 *.psb             binary
 *.psd             binary
 # SVG treated as an asset (binary) by default.
-*.svg             text
+*.svg             text eol=lf
 # If you want to treat it as binary,
 # use the following line instead.
 # *.svg           binary
