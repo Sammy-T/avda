@@ -1,6 +1,7 @@
 <script>
     import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
+    import { formatCode } from '$lib/util';
     import { ClipboardSetText } from '$wails/runtime/runtime';
 
     export let item;
@@ -35,7 +36,7 @@
 
         <div class="codeInfo">
             <p><strong>{entry.issuer}</strong> ({entry.name})</p>
-            <h2>{item.code}</h2>
+            <h2>{formatCode(item.code)}</h2>
         </div>
     </div>
 
