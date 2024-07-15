@@ -8,7 +8,9 @@ import { CloseVault } from '$wails/go/main/App';
  * @returns The formatted code
  */
 export function formatCode(code) {
-    if(code.length < 6) return code;
+    // Don't format codes that are under the minimum format length
+    // or responses for code types that aren't implemented.
+    if(code.length < 6 || code.includes('<!')) return code;
 
     const temp = code.split('');
     const formatted = [];
