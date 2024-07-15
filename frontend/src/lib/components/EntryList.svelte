@@ -1,18 +1,16 @@
 <script>
     import EntryItem from './EntryItem.svelte';
-    import { search } from '$lib/stores';
+    import { items, search } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
 
-    let items = [];
-
-    $: filteredItems = items.filter(item => {
+    $: filteredItems = $items.filter(item => {
         const searchRE = new RegExp($search, 'i');
         const { issuer, name } = item.entry;
         return searchRE.test(issuer) || searchRE.test(name);
     });
 
-    EventsOn('onCodesUpdated', (entryCodes) => items = entryCodes);
+    EventsOn('onCodesUpdated', (entryCodes) => $items = entryCodes);
 </script>
 
 {#if filteredItems.length === 0}
