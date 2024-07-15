@@ -1,4 +1,4 @@
-import { vaultPath, search } from './stores';
+import { vaultPath, search, items } from './stores';
 import { CloseVault } from '$wails/go/main/App';
 
 /**
@@ -26,12 +26,13 @@ export function formatCode(code) {
 }
 
 /**
- * Closes the current vault and clears the vault path store. 
+ * Closes the current vault and clears the frontend's vault data. 
  * This triggers the selection modal to display.
  */
 export async function closeFile() {
     await CloseVault();
 
     vaultPath.set(null);
+    items.set([]);
     search.set('');
 }
