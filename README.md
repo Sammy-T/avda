@@ -10,8 +10,9 @@ The app is built with [Wails](https://github.com/wailsapp/wails) and [Svelte](ht
 > [!NOTE]
 > HOTP is not implemented due to syncing concerns.
 
-![avda_screen_02](https://github.com/user-attachments/assets/89159fd5-4437-4222-bc04-23ce6357ab42)
-![avda_screen_03](https://github.com/user-attachments/assets/5e8278f0-5f59-4b91-8211-fc860441245e)
+![avda_screen_04](https://github.com/user-attachments/assets/7b997ab6-3cfc-4b28-90a2-5e0e4d262ca5)
+![avda_screen_05](https://github.com/user-attachments/assets/b41efff8-f6ca-4aba-be3d-17de060a46bb)
+
 
 ## Getting started
 
