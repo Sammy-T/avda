@@ -28,6 +28,14 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
+// GetAppInfo returns the info from the app's config file.
+func (a *App) GetAppInfo() Response {
+	return Response{
+		Status: "success",
+		Data:   appInfo,
+	}
+}
+
 // SelectVault opens a file selection dialog
 // and returns the selected file's path.
 func (a *App) SelectVault() Response {

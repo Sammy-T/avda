@@ -1,17 +1,30 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
+    import { GetAppInfo } from '$wails/go/main/App';
     import { BrowserOpenURL } from '$wails/runtime/runtime';
+    import { onMount } from 'svelte';
 
-/**
- * Captures a link click event and opens the externa url
- * in the default browser.
- * @param event {Event}
- */
-function openExtUrl(event) {
-    // @ts-ignore
-    const url = event.currentTarget.href;
-    BrowserOpenURL(url);
-}
+    let version = '';
+
+    /**
+     * Captures a link click event and opens the externa url
+     * in the default browser.
+     * @param event {Event}
+     */
+    function openExtUrl(event) {
+        // @ts-ignore
+        const url = event.currentTarget.href;
+        BrowserOpenURL(url);
+    }
+
+    async function loadInfo() {
+        const resp = await GetAppInfo();
+        version = resp.data.productVersion;
+    }
+
+    onMount(() => {
+        loadInfo();
+    });
 </script>
 
 <footer data-theme="dark">
@@ -26,7 +39,7 @@ function openExtUrl(event) {
         </ul>
 
         <ul>
-            <li><small>v1.3.0</small></li>
+            <li><small>v{version}</small></li>
         </ul>
     </nav>
 </footer>
