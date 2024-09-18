@@ -2,7 +2,7 @@ module github.com/sammy-t/avda
 
 go 1.22.4
 
-toolchain go1.22.5
+toolchain go1.23.1
 
 require (
 	github.com/sammy-t/avdu v0.3.1
