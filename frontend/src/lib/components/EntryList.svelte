@@ -3,15 +3,36 @@
     import { items, search } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
+    import { getContext } from 'svelte';
+
+    /** @type {import('svelte/store').Writable<boolean>} */
+    const displaySearch = getContext('displaySearch');
 
     $: filteredItems = $items.filter(item => {
         const searchRE = new RegExp($search, 'i');
+
         const { issuer, name } = item.entry;
+
         return searchRE.test(issuer) || searchRE.test(name);
     });
 
+    /**
+     * @param event {KeyboardEvent}
+     */
+    function onKeyEvent(event) {
+        if(filteredItems.length === 0 || !event.ctrlKey) return;
+
+        switch(event.key) {
+            case 'f':
+                $displaySearch = !$displaySearch;
+                break;
+        }
+    }
+
     EventsOn('onCodesUpdated', (entryCodes) => $items = entryCodes);
 </script>
+
+<svelte:document on:keyup={onKeyEvent} />
 
 {#if filteredItems.length === 0}
     <div id="empty">
