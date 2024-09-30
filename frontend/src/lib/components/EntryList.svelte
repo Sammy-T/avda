@@ -26,6 +26,10 @@
             case 'f':
                 $displaySearch = !$displaySearch;
                 break;
+            
+            case 'w':
+                closeFile();
+                break;
         }
     }
 
