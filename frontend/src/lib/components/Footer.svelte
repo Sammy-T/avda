@@ -7,7 +7,7 @@
     let version = '';
 
     /**
-     * Captures a link click event and opens the externa url
+     * Captures a link click event and opens the external url
      * in the default browser.
      * @param event {Event}
      */
