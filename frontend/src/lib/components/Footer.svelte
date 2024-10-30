@@ -4,7 +4,7 @@
     import { BrowserOpenURL } from '$wails/runtime/runtime';
     import { onMount } from 'svelte';
 
-    let version = '';
+    let version = $state('');
 
     /**
      * Captures a link click event and opens the external url
