@@ -30,8 +30,11 @@ export function formatCode(code) {
 /**
  * Closes the current vault and clears the frontend's vault data. 
  * This triggers the selection modal to display.
+ * @param {Event?} event
  */
-export async function closeFile() {
+export async function closeFile(event = null) {
+    if(event) event.preventDefault();
+
     await CloseVault();
 
     vaultPath.set(null);

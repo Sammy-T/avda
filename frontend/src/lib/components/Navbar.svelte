@@ -8,7 +8,12 @@
 
     const displaySearch = getContext('displaySearch');
 
-    function toggleSearch() {
+    /**
+     * @param {Event} event
+     */
+    function toggleSearch(event) {
+        event.preventDefault();
+
         $displaySearch = !$displaySearch;
     }
 </script>
@@ -23,7 +28,7 @@
 
     <ul class="filename">
         <li>
-            <a href="##" class="contrast" on:click|preventDefault={closeFile}>
+            <a href="##" class="contrast" onclick={closeFile}>
                 {$vaultPath?.split(/[\\/]/).at(-1) ?? 'filename'}
             </a>
         </li>
@@ -31,14 +36,12 @@
 
     <ul>
         <li>
-            <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom"
-                on:click|preventDefault={toggleSearch}>
+            <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom" onclick={toggleSearch}>
                 {@html searchIc}
             </a>
         </li>
         <li>
-            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" 
-                on:click|preventDefault={closeFile}>
+            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" onclick={closeFile}>
                 {@html closeFileIc}
             </a>
         </li>

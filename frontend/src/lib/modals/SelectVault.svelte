@@ -3,10 +3,15 @@
     import { OpenVault, SelectVault } from '$wails/go/main/App';
     import { vaultPath } from '$lib/stores';
 
-    let selected;
-    let respError = false;
+    let selected = $state();
+    let respError = $state(false);
 
-    async function select() {
+    /**
+     * @param {Event} event
+     */
+    async function select(event) {
+        event.preventDefault();
+
         respError = false;
 
         const resp = await SelectVault();
@@ -25,6 +30,8 @@
      * @param event {SubmitEvent}
      */
     async function onSubmit(event) {
+        event.preventDefault();
+
         respError = false;
 
         // @ts-ignore
@@ -53,9 +60,9 @@
 
         <h5>Select vault file</h5>
 
-        <form on:submit|preventDefault={onSubmit}>
+        <form onsubmit={onSubmit}>
             <div class="file-input">
-                <button type="button" class="secondary" on:click|preventDefault={select}>
+                <button type="button" class="secondary" onclick={select}>
                     Choose File
                 </button>
 
@@ -67,7 +74,7 @@
             <input type="password" name="password" placeholder="Password" />
             <small>Leave blank for unencrypted vault files.</small>
 
-            {#if respError } 
+            {#if respError}
                 <small class="warning">Unable to open vault.</small>
             {/if}
 

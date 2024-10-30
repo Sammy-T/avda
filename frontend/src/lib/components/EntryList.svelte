@@ -8,13 +8,13 @@
     /** @type {import('svelte/store').Writable<boolean>} */
     const displaySearch = getContext('displaySearch');
 
-    $: filteredItems = $items.filter(item => {
+    let filteredItems = $derived($items.filter((item) => {
         const searchRE = new RegExp($search, 'i');
 
         const { issuer, name } = item.entry;
 
         return searchRE.test(issuer) || searchRE.test(name);
-    });
+    }));
 
     /**
      * @param event {KeyboardEvent}
@@ -41,7 +41,7 @@
 {#if filteredItems.length === 0}
     <div id="empty">
         <p>No entries.</p>
-        <button on:click={closeFile}>Open Vault</button>
+        <button onclick={closeFile}>Open Vault</button>
     </div>
 {:else}
     <div class="list">
