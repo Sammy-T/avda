@@ -10,12 +10,14 @@
 
     const countdown = tweened(30000);
 
-    let searchInput;
+    let searchInput = $state();
 
     const displaySearch = writable(false);
     setContext('displaySearch', displaySearch);
 
-    $: if($displaySearch) searchInput?.focus();
+    $effect(() => {
+        if($displaySearch) searchInput?.focus();
+    });
 
     function onSearchSubmit() {
         $displaySearch = false;
@@ -26,6 +28,8 @@
      * @param event {KeyboardEvent}
      */
     function onSearchInputKey(event) {
+        event.preventDefault();
+
         if(event.key === 'Escape') $displaySearch = false;
     }
 
@@ -46,12 +50,12 @@
 
 <header>
     <Navbar />
-    <progress max="30000" value={$countdown} />
+    <progress max="30000" value={$countdown}></progress>
 
     {#if $displaySearch}
-        <form spellcheck="false" on:submit|preventDefault={onSearchSubmit}>
+        <form spellcheck="false" onsubmit={onSearchSubmit}>
             <input type="search" name="search" placeholder="Search" autocomplete="off" 
-                on:keyup={onSearchInputKey} bind:value={$search} bind:this={searchInput} />
+                onkeyup={onSearchInputKey} bind:value={$search} bind:this={searchInput} />
         </form>
     {/if}
 </header>

@@ -12,6 +12,8 @@
      * @param event {Event}
      */
     function openExtUrl(event) {
+        event.preventDefault();
+
         // @ts-ignore
         const url = event.currentTarget.href;
         BrowserOpenURL(url);
@@ -32,7 +34,7 @@
         <ul>
             <li>
                 <a href="https://github.com/Sammy-T/avda" class="contrast" data-tooltip="GitHub" 
-                    on:click|preventDefault={openExtUrl}>
+                    onclick={openExtUrl}>
                     {@html githubIc}
                 </a>
             </li>
