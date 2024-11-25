@@ -26,7 +26,7 @@ jobs:
     
     - name: Install Linux dependencies
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get update && sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev
+      run: sudo apt-get update && sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev
     
     - name: Set up Node.js
       uses: actions/setup-node@v4.0.3
@@ -64,6 +64,10 @@ jobs:
 
     - name: Build Wails app
       run: wails build
+    
+    - name: Build Wails app (Linux-alt)
+      if: matrix.os == 'ubuntu-latest'
+      run: wails build -tags webkit2_41 -o ${{ steps.filename.outputs.prop }}-linux-alt
       
     - name: Zip release file
       uses: vimtor/action-zip@v1.2
@@ -73,7 +77,7 @@ jobs:
         dest: release/${{ steps.filename.outputs.prop }}_${{ matrix.os-base }}.zip
       
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4.3.4
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: ${{ steps.filename.outputs.prop }}_${{ matrix.os-base }}
         path: release/
@@ -93,7 +97,7 @@ jobs:
         merge-multiple: true
 
     - name: Release
-      uses: softprops/action-gh-release@v2.0.6
+      uses: softprops/action-gh-release@v2.1.0
       with:
         name: ${{ github.ref_name }}
         tag_name: ${{ github.ref_name }}
