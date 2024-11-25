@@ -14,7 +14,7 @@
 
     let { entry } = item;
 
-    let copyMsg = $state('');
+    let copyMsg = $state(null);
 
     async function copyCode() {
         const success = await ClipboardSetText(item.code);
@@ -28,47 +28,33 @@
     }
 
     function resetToolTip() {
-        copyMsg = '';
+        copyMsg = null;
     }
 </script>
 
 <article class="entry">
-    <div class="info">
-        {#if entry.icon}
-            <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
-        {:else}
-            {@html blankImgIc}
-        {/if}
+    {#if entry.icon}
+        <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
+    {:else}
+        {@html blankImgIc}
+    {/if}
 
-        <div class="codeInfo">
-            <p><strong>{entry.issuer}</strong> ({entry.name})</p>
-            <h2>{formatCode(item.code)}</h2>
-        </div>
+    <div class="codeInfo">
+        <p><strong>{entry.issuer}</strong> ({entry.name})</p>
+        <h2>{formatCode(item.code)}</h2>
     </div>
 
-    {#if copyMsg}
-        <button class="secondary" onclick={copyCode} onmouseleave={resetToolTip} data-tooltip={copyMsg}>
-            {@html copyIc}
-        </button>
-    {:else}
-        <button class="secondary" onclick={copyCode}>
-            {@html copyIc}
-        </button>
-    {/if}
+    <button class="secondary" onclick={copyCode} onmouseleave={resetToolTip} data-tooltip={copyMsg}>
+        {@html copyIc}
+    </button>
 </article>
 
 <style>
     article {
         width: 25rem;
         margin: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .info {
-        flex-grow: 1;
-        display: flex;
+        display: grid;
+        grid-template-columns: 11.5% 1fr min-content;
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
     }
