@@ -26,7 +26,7 @@ jobs:
     
     - name: Install Linux dependencies
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get update && sudo apt install libgtk-3-dev libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev
+      run: sudo apt-get update && sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev
     
     - name: Set up Node.js
       uses: actions/setup-node@v4.0.3
@@ -63,11 +63,12 @@ jobs:
       run: mkdir -p release
 
     - name: Build Wails app
+      if: matrix.os != 'ubuntu-latest'
       run: wails build
     
-    - name: Build Wails app (Linux-alt)
+    - name: Build Wails app (Linux)
       if: matrix.os == 'ubuntu-latest'
-      run: wails build -tags webkit2_41 -o ${{ steps.filename.outputs.prop }}-linux-alt
+      run: wails build -tags webkit2_41
       
     - name: Zip release file
       uses: vimtor/action-zip@v1.2
