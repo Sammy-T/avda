@@ -59,6 +59,7 @@
         display: flex;
         align-content: flex-start;
         align-items: flex-start;
+        justify-content: center;
         flex-wrap: wrap;
         gap: calc(var(--pico-spacing) * 2);
     }
