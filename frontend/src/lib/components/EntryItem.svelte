@@ -51,8 +51,7 @@
 
 <style>
     article {
-        width: 100%;
-        max-width: 420px;
+        width: 25rem;
         margin: 0;
         display: grid;
         grid-template-columns: 11.5% 1fr min-content;
