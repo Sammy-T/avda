@@ -1,9 +1,9 @@
 <script>
     import avdaIc from '$assets/images/avda.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { OpenVault, SelectVault } from '$wails/go/main/App';
+    import { GetAppInfo, OpenVault, SelectVault } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
-    import { openExtUrl } from '$lib/util';
+    import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
     import { vaultPath } from '$lib/stores';
     import { onMount } from 'svelte';
 
@@ -75,11 +75,21 @@
         dragover = false;
     }
 
+    async function loadInfo() {
+        const resp = await GetAppInfo();
+        let version = resp.data.productVersion;
+
+        const releaseInfo = await getLatestReleaseInfo();
+        if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
+
+        releaseUrl = releaseInfo.html_url;
+    }
+
     onMount(() => {
         // Set the dropped file as the selected file.
         OnFileDrop((x, y, paths) => selected = paths.at(0), true);
 
-        releaseUrl = 'https://github.com/Sammy-T/avda/releases';
+        loadInfo();
 
         return () => {
             OnFileDropOff();

@@ -1,7 +1,7 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { openExtUrl } from '$lib/util';
+    import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
     import { GetAppInfo } from '$wails/go/main/App';
     import { onMount } from 'svelte';
 
@@ -11,12 +11,15 @@
     async function loadInfo() {
         const resp = await GetAppInfo();
         version = resp.data.productVersion;
+
+        const releaseInfo = await getLatestReleaseInfo();
+        if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
+
+        releaseUrl = releaseInfo.html_url;
     }
 
     onMount(() => {
         loadInfo();
-
-        releaseUrl = 'https://github.com/Sammy-T/avda/releases';
     });
 </script>
 

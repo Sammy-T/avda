@@ -41,6 +41,28 @@ export function openExtUrl(event) {
     BrowserOpenURL(url);
 }
 
+export async function getLatestReleaseInfo() {
+    try {
+        /** @type {RequestInit} */
+        const opts = {
+            headers: {
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28'
+            }
+        };
+
+        const resp = await fetch('https://api.github.com/repos/sammy-t/avda/releases/latest', opts);
+        const respJson = await resp.json();
+
+        console.log(new Date, respJson);
+
+        return respJson;
+    } catch(error) {
+        console.error('Unable to check for update.', error);
+        return null;
+    }
+}
+
 /**
  * Closes the current vault and clears the frontend's vault data. 
  * This triggers the selection modal to display.
