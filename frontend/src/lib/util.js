@@ -1,5 +1,6 @@
 import { vaultPath, search, items } from './stores';
 import { CloseVault } from '$wails/go/main/App';
+import { BrowserOpenURL } from '$wails/runtime/runtime';
 
 /**
  * Attempts to format the code's characters into 
@@ -25,6 +26,19 @@ export function formatCode(code) {
     }
 
     return formatted.join('');
+}
+
+/**
+ * Captures a link click event and opens the external url
+ * in the default browser.
+ * @param event {Event}
+ */
+export function openExtUrl(event) {
+    event.preventDefault();
+
+    // @ts-ignore
+    const url = event.currentTarget.href;
+    BrowserOpenURL(url);
 }
 
 /**

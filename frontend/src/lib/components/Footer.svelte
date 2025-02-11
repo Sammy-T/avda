@@ -1,23 +1,12 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
+    import infoIc from '$assets/images/info-circle.svg?raw';
+    import { openExtUrl } from '$lib/util';
     import { GetAppInfo } from '$wails/go/main/App';
-    import { BrowserOpenURL } from '$wails/runtime/runtime';
     import { onMount } from 'svelte';
 
     let version = $state('');
-
-    /**
-     * Captures a link click event and opens the external url
-     * in the default browser.
-     * @param event {Event}
-     */
-    function openExtUrl(event) {
-        event.preventDefault();
-
-        // @ts-ignore
-        const url = event.currentTarget.href;
-        BrowserOpenURL(url);
-    }
+    let releaseUrl = $state();
 
     async function loadInfo() {
         const resp = await GetAppInfo();
@@ -26,6 +15,8 @@
 
     onMount(() => {
         loadInfo();
+
+        releaseUrl = 'https://github.com/Sammy-T/avda/releases';
     });
 </script>
 
@@ -41,7 +32,18 @@
         </ul>
 
         <ul>
-            <li><small>v{version}</small></li>
+            {#if releaseUrl}
+                <li>
+                    <small>
+                        <a href={releaseUrl} class="contrast" data-tooltip="Update Available" 
+                            onclick={openExtUrl}>
+                            {@html infoIc} v{version}
+                        </a>
+                    </small>
+                </li>
+            {:else}
+                <li><small>v{version}</small></li>
+            {/if}
         </ul>
     </nav>
 </footer>
@@ -51,12 +53,20 @@
         border-top: 3px solid var(--pico-contrast);
     }
 
+    footer nav ul {
+        margin: 0;
+    }
+
     footer nav li {
         padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
     }
 
     footer nav li small {
         color: var(--pico-contrast);
+    }
+
+    footer a {
+        text-decoration: none;
     }
 
     nav {
