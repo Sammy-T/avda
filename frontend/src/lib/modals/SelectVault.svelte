@@ -1,13 +1,17 @@
 <script>
     import avdaIc from '$assets/images/avda.svg?raw';
-    import { OpenVault, SelectVault } from '$wails/go/main/App';
+    import infoIc from '$assets/images/info-circle.svg?raw';
+    import { GetAppInfo, OpenVault, SelectVault } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
+    import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
     import { vaultPath } from '$lib/stores';
     import { onMount } from 'svelte';
 
     let dragover = $state(false);
     let selected = $state();
     let respError = $state(false);
+
+    let releaseUrl = $state();
 
     /**
      * @param {Event} event
@@ -71,9 +75,21 @@
         dragover = false;
     }
 
+    async function loadInfo() {
+        const resp = await GetAppInfo();
+        let version = resp.data.productVersion;
+
+        const releaseInfo = await getLatestReleaseInfo();
+        if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
+
+        releaseUrl = releaseInfo.html_url;
+    }
+
     onMount(() => {
         // Set the dropped file as the selected file.
         OnFileDrop((x, y, paths) => selected = paths.at(0), true);
+
+        loadInfo();
 
         return () => {
             OnFileDropOff();
@@ -109,6 +125,12 @@
             {/if}
 
             <button>Unlock</button>
+
+            {#if releaseUrl}
+                <div class="info">
+                    <small><a href={releaseUrl} onclick={openExtUrl}>{@html infoIc} Update Available</a></small>
+                </div>
+            {/if}
         </form>
     </article>
 </dialog>
@@ -155,5 +177,15 @@
 
     .dragover {
         outline: 2px solid rgba(255, 255, 255, 0.845);
+    }
+
+    .info {
+        display: flex;
+        justify-content: center;
+        padding-top: calc(var(--pico-spacing) * 0.5);
+    }
+
+    .info * {
+        text-decoration: none;
     }
 </style>
