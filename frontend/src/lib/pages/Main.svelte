@@ -3,12 +3,12 @@
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
     import { search } from '$lib/stores';
-    import { tweened } from 'svelte/motion';
+    import { Tween } from 'svelte/motion';
     import { writable } from 'svelte/store';
     import { setContext } from 'svelte';
     import { EventsOn } from '$wails/runtime/runtime';
 
-    const countdown = tweened(30000);
+    const countdown = new Tween(30000);
 
     let searchInput = $state();
 
@@ -39,10 +39,10 @@
      */
     async function updateCountdown(ttn) {
         // Immediately update to the current time-til-next value
-        await countdown.update(() => ttn, { duration: 0 });
+        countdown.set(ttn, { duration: 0 });
 
         // Update to 0 with a duration of the time-til-next value
-        countdown.update(() => 0, { duration: ttn });
+        countdown.set(0, { duration: ttn });
     }
 
     EventsOn("onTimeUpdated", updateCountdown);
@@ -50,7 +50,7 @@
 
 <header>
     <Navbar />
-    <progress max="30000" value={$countdown}></progress>
+    <progress max="30000" value={countdown.current}></progress>
 
     {#if $displaySearch}
         <form spellcheck="false" onsubmit={onSearchSubmit}>
