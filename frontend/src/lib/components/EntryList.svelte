@@ -53,13 +53,10 @@
 
 <style>
     .list {
-        flex-grow: 1;
         padding: calc(var(--pico-spacing) * 1.5);
         overflow-y: auto;
-        display: flex;
-        align-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: calc(var(--pico-spacing) * 2);
     }
 
