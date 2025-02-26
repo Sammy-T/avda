@@ -4,8 +4,8 @@
     import { vaultPath } from './stores';
 </script>
 
-<Main />
-
 {#if !$vaultPath}
     <SelectVault />
+{:else}
+    <Main />
 {/if}
