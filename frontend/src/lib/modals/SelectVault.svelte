@@ -145,16 +145,16 @@
         align-items: center;
         gap: calc(var(--pico-spacing) * 1);
         --wails-drop-target: drop;
-    }
 
-    .file-input > button {
-        padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
-        margin: 0;
-        text-wrap: nowrap;
-    }
+        & > button {
+            padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
+            margin: 0;
+            text-wrap: nowrap;
+        }
 
-    .file-input > p {
-        margin: 0;
+        & > p {
+            margin: 0;
+        }
     }
 
     form > button {
@@ -169,9 +169,9 @@
         display: flex;
         justify-content: center;
         padding-top: calc(var(--pico-spacing) * 0.5);
-    }
 
-    .info * {
-        text-decoration: none;
+        & * {
+            text-decoration: none;
+        }
     }
 </style>

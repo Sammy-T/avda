@@ -21,9 +21,11 @@ footer svg {
     max-height: 18px;
 }
 
-.entry > svg, .entry > img {
-    width: 100%;
-    height: auto;
+.entry {
+    & > svg, & > img {
+        width: 100%;
+        height: auto;
+    }
 }
 
 dialog {

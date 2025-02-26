@@ -36,22 +36,24 @@
 <style>
     footer {
         border-top: 3px solid var(--pico-contrast);
-    }
 
-    footer nav ul {
-        margin: 0;
-    }
+        & nav {
+            & ul {
+                margin: 0;
+            }
 
-    footer nav li {
-        padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
-    }
+            & li {
+                padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
 
-    footer nav li small {
-        color: var(--pico-contrast);
-    }
+                & small {
+                    color: var(--pico-contrast);
+                }
+            }
+        }
 
-    footer a {
-        text-decoration: none;
+        & a {
+            text-decoration: none;
+        }
     }
 
     nav {
