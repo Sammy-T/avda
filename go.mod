@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.24.0
 
 require (
-	github.com/sammy-t/avdu v0.3.3
+	github.com/sammy-t/avdu v0.4.0
 	github.com/wailsapp/wails/v2 v2.10.1
 )
 
