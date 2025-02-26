@@ -1,26 +1,8 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
-    import { GetAppInfo } from '$wails/go/main/App';
-    import { onMount } from 'svelte';
-
-    let version = $state('');
-    let releaseUrl = $state();
-
-    async function loadInfo() {
-        const resp = await GetAppInfo();
-        version = resp.data.productVersion;
-
-        const releaseInfo = await getLatestReleaseInfo();
-        if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
-
-        releaseUrl = releaseInfo.html_url;
-    }
-
-    onMount(() => {
-        loadInfo();
-    });
+    import { releaseUrl, version } from '$lib/stores';
+    import { openExtUrl } from '$lib/util';
 </script>
 
 <footer data-theme="dark">
@@ -35,17 +17,17 @@
         </ul>
 
         <ul>
-            {#if releaseUrl}
+            {#if $releaseUrl}
                 <li>
                     <small>
-                        <a href={releaseUrl} class="contrast" data-tooltip="Update Available" 
+                        <a href={$releaseUrl} class="contrast" data-tooltip="Update Available" 
                             onclick={openExtUrl}>
-                            {@html infoIc} v{version}
+                            {@html infoIc} v{$version}
                         </a>
                     </small>
                 </li>
             {:else}
-                <li><small>v{version}</small></li>
+                <li><small>v{$version}</small></li>
             {/if}
         </ul>
     </nav>

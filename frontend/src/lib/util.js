@@ -41,6 +41,10 @@ export function openExtUrl(event) {
     BrowserOpenURL(url);
 }
 
+/**
+ * Queries the GitHub API for info about the latest release.
+ * @returns The release info
+ */
 export async function getLatestReleaseInfo() {
     try {
         /** @type {RequestInit} */
