@@ -54,7 +54,6 @@
 <style>
     .list {
         padding: calc(var(--pico-spacing) * 1.5);
-        overflow-y: auto;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: calc(var(--pico-spacing) * 2);
@@ -67,5 +66,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 </style>

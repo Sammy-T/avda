@@ -119,7 +119,7 @@ func (a *App) watchOTPs() {
 
 		runtime.EventsEmit(a.ctx, "onTimeUpdated", ttn)
 
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(time.Duration(ttn) * time.Millisecond)
 	}
 }
 
