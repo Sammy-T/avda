@@ -1,26 +1,8 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
-    import { GetAppInfo } from '$wails/go/main/App';
-    import { onMount } from 'svelte';
-
-    let version = $state('');
-    let releaseUrl = $state();
-
-    async function loadInfo() {
-        const resp = await GetAppInfo();
-        version = resp.data.productVersion;
-
-        const releaseInfo = await getLatestReleaseInfo();
-        if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
-
-        releaseUrl = releaseInfo.html_url;
-    }
-
-    onMount(() => {
-        loadInfo();
-    });
+    import { releaseUrl, version } from '$lib/stores';
+    import { openExtUrl } from '$lib/util';
 </script>
 
 <footer data-theme="dark">
@@ -35,17 +17,17 @@
         </ul>
 
         <ul>
-            {#if releaseUrl}
+            {#if $releaseUrl}
                 <li>
                     <small>
-                        <a href={releaseUrl} class="contrast" data-tooltip="Update Available" 
+                        <a href={$releaseUrl} class="contrast" data-tooltip="Update Available" 
                             onclick={openExtUrl}>
-                            {@html infoIc} v{version}
+                            {@html infoIc} v{$version}
                         </a>
                     </small>
                 </li>
             {:else}
-                <li><small>v{version}</small></li>
+                <li><small>v{$version}</small></li>
             {/if}
         </ul>
     </nav>
@@ -54,22 +36,24 @@
 <style>
     footer {
         border-top: 3px solid var(--pico-contrast);
-    }
 
-    footer nav ul {
-        margin: 0;
-    }
+        & nav {
+            & ul {
+                margin: 0;
+            }
 
-    footer nav li {
-        padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
-    }
+            & li {
+                padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
 
-    footer nav li small {
-        color: var(--pico-contrast);
-    }
+                & small {
+                    color: var(--pico-contrast);
+                }
+            }
+        }
 
-    footer a {
-        text-decoration: none;
+        & a {
+            text-decoration: none;
+        }
     }
 
     nav {

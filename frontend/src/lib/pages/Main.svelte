@@ -69,42 +69,40 @@
 <style>
     header {
         background-color: rgba(56, 83, 122, 0.574);
-    }
 
-    header > progress {
-        margin-bottom: 0;
-        border-radius: 0;
-    }
+        & > progress {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
 
-    /* Remove Pico's transitions so they don't conflict with Svelte's while tweening. */
-    header > progress[value]::-webkit-progress-value {
-        transition: none;
-        -webkit-transition: none;
-    }
+        /* Remove Pico's transitions so they don't conflict with Svelte's while tweening. */
+        & > progress[value]::-webkit-progress-value {
+            transition: none;
+            -webkit-transition: none;
+        }
 
-    header > form {
-        position: absolute;
-        width: 100%;
-        padding: calc(var(--pico-spacing) * 0.5);
-        display: flex;
-        justify-content: center;
-        pointer-events: none;
-    }
+        & > form {
+            position: absolute;
+            width: 100%;
+            padding: calc(var(--pico-spacing) * 0.5);
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
 
-    header > form > * {
-        width: auto;
-        margin: 0;
-        pointer-events: auto;
-    }
+            & > * {
+                width: auto;
+                margin: 0;
+                pointer-events: auto;
+            }
 
-    header > form > input {
-        height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 1 + var(--pico-border-width)* 2);
+            & > input {
+                height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 1 + var(--pico-border-width)* 2);
+            }
+        }
     }
 
     main {
         flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
+        overflow-y: auto;
     }
 </style>
