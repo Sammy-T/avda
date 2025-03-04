@@ -54,7 +54,7 @@ func (a *App) SelectVault() Response {
 	}
 
 	options := runtime.OpenDialogOptions{
-		Title:            "Select vault file FFFFFF",
+		Title:            "Select vault file",
 		Filters:          filters,
 		DefaultFilename:  a.config.LastVaultPath,
 		DefaultDirectory: filepath.Dir(a.config.LastVaultPath),

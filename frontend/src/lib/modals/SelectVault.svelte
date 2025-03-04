@@ -19,7 +19,7 @@
     async function select(event) {
         event.preventDefault();
 
-        respError = false;
+        respError = null;
 
         const resp = await SelectVault();
         
