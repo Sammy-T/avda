@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"path/filepath"
 	"time"
 
 	"github.com/sammy-t/avdu"
@@ -15,6 +16,7 @@ import (
 type App struct {
 	ctx       context.Context
 	vaultData *vault.Vault
+	config    *Config
 }
 
 // NewApp creates a new App application struct
@@ -26,6 +28,14 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+
+	// Load config
+	config, err := loadConfig()
+	if err != nil {
+		log.Printf("Error loading config: %v\n", err)
+		config = &Config{}
+	}
+	a.config = config
 }
 
 // GetAppInfo returns the info from the app's config file.
@@ -44,8 +54,10 @@ func (a *App) SelectVault() Response {
 	}
 
 	options := runtime.OpenDialogOptions{
-		Title:   "Select vault file",
-		Filters: filters,
+		Title:            "Select vault file FFFFFF",
+		Filters:          filters,
+		DefaultFilename:  a.config.LastVaultPath,
+		DefaultDirectory: filepath.Dir(a.config.LastVaultPath),
 	}
 
 	filePath, err := runtime.OpenFileDialog(a.ctx, options)
@@ -60,9 +72,25 @@ func (a *App) SelectVault() Response {
 	} else {
 		response.Status = "success"
 		response.Data = filePath
+
+		// Save the selected path to config
+		if a.config.LastVaultPath != filePath && filePath != "" {
+			a.config.LastVaultPath = filePath
+			if err := saveConfig(a.config); err != nil {
+				log.Printf("Error saving config: %v\n", err)
+			}
+		}
 	}
 
 	return response
+}
+
+// GetLastVaultPath returns the last used vault path from config
+func (a *App) GetLastVaultPath() Response {
+	return Response{
+		Status: "success",
+		Data:   a.config.LastVaultPath,
+	}
 }
 
 // OpenVault reads the vault file at the provided path,

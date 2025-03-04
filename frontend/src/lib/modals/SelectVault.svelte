@@ -1,7 +1,7 @@
 <script>
     import avdaIc from '$assets/images/avda.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { GetAppInfo, OpenVault, SelectVault } from '$wails/go/main/App';
+    import { GetAppInfo, OpenVault, SelectVault, GetLastVaultPath } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
     import { getLatestReleaseInfo, openExtUrl } from '$lib/util';
     import { vaultPath } from '$lib/stores';
@@ -9,7 +9,7 @@
 
     let dragover = $state(false);
     let selected = $state();
-    let respError = $state(false);
+    let respError = $state('');
 
     let releaseUrl = $state();
 
@@ -39,7 +39,7 @@
     async function onSubmit(event) {
         event.preventDefault();
 
-        respError = false;
+        respError = null;
 
         // @ts-ignore
         const formData = new FormData(event.target);
@@ -53,7 +53,7 @@
 
         if(resp.status !== 'success') {
             console.error(resp.message);
-            respError = true;
+            respError = resp.message;
             return;
         }
 
@@ -85,9 +85,16 @@
         releaseUrl = releaseInfo.html_url;
     }
 
-    onMount(() => {
+    onMount(async () => {
         // Set the dropped file as the selected file.
         OnFileDrop((x, y, paths) => selected = paths.at(0), true);
+
+        if(!selected) {
+            const response = await GetLastVaultPath();
+            if (response.status === 'success' && response.data) {
+                selected = response.data;
+            }
+        }
 
         loadInfo();
 
@@ -121,7 +128,7 @@
             <small>Leave blank for unencrypted vault files.</small>
 
             {#if respError}
-                <small class="warning">Unable to open vault.</small>
+                <small class="warning">Unable to open vault. ({respError})</small>
             {/if}
 
             <button>Unlock</button>

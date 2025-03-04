@@ -53,6 +53,22 @@
           }
         }
       },
+      "linux": {
+        "options": {
+          "env": {
+            "CGO_ENABLED": "1"
+          }
+        },
+        "args": [
+          "build",
+          "-tags",
+          "production,desktop,debug,webkit2_41",
+          "-gcflags",
+          "all=-N -l",
+          "-o",
+          "build/bin/avdap"
+        ]
+      },
       "windows": {
         "options": {
           "env": {

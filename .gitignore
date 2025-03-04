@@ -3,3 +3,4 @@ frontend/dist
 frontend/node_modules
 
 .temp/
+.tool-versions

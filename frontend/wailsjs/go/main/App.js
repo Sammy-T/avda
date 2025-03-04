@@ -10,6 +10,10 @@ export function GetAppInfo() {
   return window['go']['main']['App']['GetAppInfo']();
 }
 
+export function GetLastVaultPath() {
+  return window['go']['main']['App']['GetLastVaultPath']();
+}
+
 export function OpenVault(arg1, arg2) {
   return window['go']['main']['App']['OpenVault'](arg1, arg2);
 }
