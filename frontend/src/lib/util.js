@@ -2,6 +2,8 @@ import { vaultPath, search, items } from './stores';
 import { CloseVault } from '$wails/go/main/App';
 import { BrowserOpenURL } from '$wails/runtime/runtime';
 
+export const STORAGE_KEY_WIN_SIZE = 'avda:window-size';
+
 /**
  * Attempts to format the code's characters into 
  * groupings of 3.
