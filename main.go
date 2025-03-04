@@ -18,8 +18,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "avda",
-		Width:  1080,
-		Height: 775,
+		Width:  1000,
+		Height: 735,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
@@ -28,7 +28,7 @@ func main() {
 			EnableFileDrop: true,
 		},
 		OnStartup: app.startup,
-		Bind: []interface{}{
+		Bind: []any{
 			app,
 		},
 	})
