@@ -2,6 +2,7 @@
     import Navbar from '$lib/components/Navbar.svelte';
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
+    import GroupFilter from '$lib/components/GroupFilter.svelte';
     import { search } from '$lib/stores';
     import { Tween } from 'svelte/motion';
     import { writable } from 'svelte/store';
@@ -61,6 +62,7 @@
 </header>
 
 <main>
+    <GroupFilter />
     <EntryList />
 </main>
 

@@ -1,6 +1,6 @@
 <script>
     import EntryItem from './EntryItem.svelte';
-    import { items, order, search } from '$lib/stores';
+    import { items, order, search, selectedGroup } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
     import { getContext } from 'svelte';
@@ -31,11 +31,16 @@
     });
 
     let filteredItems = $derived(sortedItems.filter((item) => {
+        // Filter by search
         const searchRE = new RegExp($search, 'i');
-
         const { issuer, name } = item.entry;
-
-        return searchRE.test(issuer) || searchRE.test(name);
+        const matchesSearch = searchRE.test(issuer) || searchRE.test(name);
+        
+        // Filter by group
+        const matchesGroup = $selectedGroup === null || 
+            (item.entry.groups && item.entry.groups.includes($selectedGroup));
+        
+        return matchesSearch && matchesGroup;
     }));
 
     /**
