@@ -1,8 +1,9 @@
 <script>
     import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
-    import { formatCode } from '$lib/util';
+    import { formatCode, getGroupColor } from '$lib/util';
     import { ClipboardSetText } from '$wails/runtime/runtime';
+    import { selectedGroup } from '$lib/stores';
 
     /**
      * @typedef {Object} Props
@@ -15,6 +16,27 @@
     let { entry } = item;
 
     let copyMsg = $state(null);
+    
+    // Get the first group's color or null if no groups
+    let groupColor = $derived(
+        item.groups && item.groups.length > 0 
+            ? getGroupColor(item.groups[0].uuid)
+            : null
+    );
+    
+    // Highlight the selected group's color if it matches
+    let highlightColor = $derived(
+        $selectedGroup && item.groups 
+            ? item.groups.find(g => g.uuid === $selectedGroup) 
+                ? getGroupColor($selectedGroup)
+                : null
+            : groupColor
+    );
+
+    // Get the first letter of issuer for the fallback icon
+    let issuerInitial = $derived(
+        entry.issuer ? entry.issuer.charAt(0).toUpperCase() : '?'
+    );
 
     async function copyCode() {
         const success = await ClipboardSetText(item.code);
@@ -32,15 +54,17 @@
     }
 </script>
 
-<article class="entry">
+<article class="entry" style={highlightColor ? `--group-color: ${highlightColor}; border-left: 4px solid var(--group-color);` : ''}>
     {#if entry.icon}
         <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
     {:else}
-        {@html blankImgIc}
+        <div class="initial-circle">
+            {issuerInitial}
+        </div>
     {/if}
 
     <div class="codeInfo">
-        <p><strong>{entry.issuer}</strong> ({entry.name})</p>
+        <p class="entry-title"><strong>{entry.issuer}</strong> <span class="entry-name">({entry.name})</span></p>
         <h2>{formatCode(item.code)}</h2>
     </div>
 
@@ -53,16 +77,47 @@
     article {
         margin: 0;
         display: grid;
-        grid-template-columns: 11.5% 1fr min-content;
+        grid-template-columns: 11.5% minmax(0, 1fr) min-content;
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
+        padding-left: calc(var(--pico-spacing) * 0.5);
+        transition: background-color 0.2s ease;
+    }
+
+    .codeInfo {
+        min-width: 0;
+        overflow: hidden;
     }
 
     .codeInfo > * {
         margin: 0;
     }
+    
+    .entry-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
+    
+    .entry-name {
+        opacity: 0.8;
+    }
 
     button {
         padding: calc(var(--pico-form-element-spacing-vertical) * 0.3) calc(var(--pico-form-element-spacing-horizontal) * 0.3);
+    }
+
+    .initial-circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background-color: var(--group-color, var(--pico-primary));
+        color: var(--pico-primary-inverse);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
     }
 </style>
