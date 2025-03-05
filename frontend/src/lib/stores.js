@@ -19,3 +19,4 @@ async function loadInfo() {
 }
 
 loadInfo();
+export const selectedGroup = writable(null);
