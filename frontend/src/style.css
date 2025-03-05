@@ -37,6 +37,11 @@ h1 svg {
     max-width: 64px;
 }
 
+#file-select svg {
+    width: 1rem;
+    height: auto;
+}
+
 .warning {
     color: var(--pico-form-element-invalid-border-color);
 }

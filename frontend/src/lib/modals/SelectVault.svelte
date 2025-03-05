@@ -1,6 +1,7 @@
 <script>
     import avdaIc from '$assets/images/avda.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
+    import chevronDownIc from '$assets/images/chevron-down.svg?raw';
     import { OpenVault, SelectVault } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
     import { openExtUrl } from '$lib/util';
@@ -94,9 +95,22 @@
             <div class="file-input" class:dragover 
                 ondragover={onDragOver} ondragleave={onDrop} ondragend={onDrop} ondrop={onDrop}>
 
-                <button type="button" class="secondary" onclick={select}>
-                    Choose File
-                </button>
+                <fieldset id="file-select">
+                    <button type="button" class="secondary" onclick={select}>
+                        Choose File
+                    </button>
+
+                    <details class="dropdown">
+                        <!-- svelte-ignore a11y_no_redundant_roles -->
+                        <summary role="button" class="secondary">{@html chevronDownIc}</summary>
+
+                        <ul>
+                            <li><a href="##">Recent File 1</a></li>
+                            <li><a href="##">Recent File 2</a></li>
+                            <li><a href="##">Recent File 3</a></li>
+                        </ul>
+                    </details>
+                </fieldset>
 
                 <p>{selected?.split(/[\\/]/).at(-1) ?? 'No file chosen'}</p>
 
@@ -146,14 +160,39 @@
         gap: calc(var(--pico-spacing) * 1);
         --wails-drop-target: drop;
 
-        & > button {
-            padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
+        & > p {
             margin: 0;
+        }
+    }
+
+    #file-select {
+        width: unset;
+        display: flex;
+        margin: 0;
+
+        & * {
+            margin: 0;
+        }
+
+        & details li {
+            padding: 0;
+        }
+
+        & button {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.5);
             text-wrap: nowrap;
         }
 
-        & > p {
-            margin: 0;
+        & summary {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.25);
+        }
+
+        & summary::after {
+            display: none;
         }
     }
 
