@@ -1,5 +1,6 @@
 <script>
     import chevronDownIc from '$assets/images/chevron-down.svg?raw';
+    import { STORAGE_KEY_RECENT_FILES } from '$lib/util';
     import { SelectVault } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
     import { onMount } from 'svelte';
@@ -16,7 +17,33 @@
     /** @type {String} */
     let selected = $state();
 
+    /** @type {String[]} */
+    let recentFiles = $state([]);
+
     let dragover = $state(false);
+
+    /** @type {HTMLDetailsElement}*/
+    let recentDropdown;
+
+    function updateRecentFiles() {
+        recentFiles = [selected, ...recentFiles.filter((f) => f !== selected)].slice(0, 3);
+        
+        localStorage.setItem(STORAGE_KEY_RECENT_FILES, JSON.stringify(recentFiles));
+    }
+
+    /**
+     * @param event {Event}
+     */
+    function selectRecent(event) {
+        event.preventDefault();
+
+        // @ts-ignore
+        selected = event.target.dataset.file;
+
+        updateRecentFiles();
+
+        recentDropdown.removeAttribute('open');
+    }
 
     /**
      * @param {Event} event
@@ -34,6 +61,8 @@
         }
 
         selected = resp.data;
+
+        updateRecentFiles();
     }
 
     /**
@@ -52,6 +81,8 @@
     }
 
     onMount(() => {
+        recentFiles = JSON.parse(localStorage.getItem(STORAGE_KEY_RECENT_FILES)) ?? [];
+
         // Set the dropped file as the selected file.
         OnFileDrop((x, y, paths) => selected = paths.at(0), true);
 
@@ -60,6 +91,14 @@
         }
     });
 </script>
+
+{#snippet recent(/** @type {String} */ file)}
+    <li>
+        <a href="##" data-file={file} onclick={selectRecent}>
+            {file.split(/[\\/]/).at(-1)}
+        </a>
+    </li>
+{/snippet}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="file-input" class:dragover 
@@ -70,14 +109,18 @@
             Choose File
         </button>
 
-        <details class="dropdown">
+        <details class="dropdown" bind:this={recentDropdown}>
             <!-- svelte-ignore a11y_no_redundant_roles -->
             <summary role="button" class="secondary">{@html chevronDownIc}</summary>
 
             <ul>
-                <li><a href="##">Recent File 1</a></li>
-                <li><a href="##">Recent File 2</a></li>
-                <li><a href="##">Recent File 3</a></li>
+                {#if recentFiles.length === 0}
+                    <li class="empty">No recent files</li>
+                {/if}
+
+                {#each recentFiles as file}
+                    {@render recent(file)}
+                {/each}
             </ul>
         </details>
     </fieldset>
@@ -129,6 +172,10 @@
 
         & summary::after {
             display: none;
+        }
+
+        & .empty {
+            padding: calc(var(--pico-form-element-spacing-vertical) * 0.5) calc(var(--pico-form-element-spacing-horizontal) * 0.25);
         }
     }
 
