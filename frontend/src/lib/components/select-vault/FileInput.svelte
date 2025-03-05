@@ -83,6 +83,8 @@
     onMount(() => {
         recentFiles = JSON.parse(localStorage.getItem(STORAGE_KEY_RECENT_FILES)) ?? [];
 
+        if(recentFiles.length > 0) selected = recentFiles.at(0);
+
         // Set the dropped file as the selected file.
         OnFileDrop((x, y, paths) => selected = paths.at(0), true);
 
