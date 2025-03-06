@@ -4,16 +4,20 @@
     import searchIc from '$assets/images/search.svg?raw';
     import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
-    import { vaultPath } from '$lib/stores';
+    import { order, vaultPath } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { getContext } from 'svelte';
 
     const displaySearch = getContext('displaySearch');
 
+    let defaultSort = $state('custom');
+
     const sortItems = [
-        { label: 'Option 1', value: 'opt1' },
-        { label: 'Option 2', value: 'opt2' },
-        { label: 'Option 3', value: 'opt3' },
+        { label: 'Custom', value: 'custom' },
+        { label: 'Account (A to Z)', value: 'account-asc' },
+        { label: 'Account (Z to A)', value: 'account-desc' },
+        { label: 'Issuer (A to Z)', value: 'issuer-asc' },
+        { label: 'Issuer (Z to A)', value: 'issuer-desc' },
     ];
 
     /**
@@ -29,7 +33,9 @@
      * @param {String} selected
      */
     function onSortSelect(selected) {
-        console.log('selected', selected);
+        $order = selected;
+
+        //// TODO: Store & Restore
     }
 </script>
 
@@ -56,7 +62,7 @@
             </a>
         </li>
         <li>
-            <Dropdown name="sort" items={sortItems} selected="opt1" onselect={onSortSelect}>
+            <Dropdown name="sort" items={sortItems} selected={defaultSort} onselect={onSortSelect}>
                 {@html sortIc}
             </Dropdown>
         </li>
