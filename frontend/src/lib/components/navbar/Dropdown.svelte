@@ -103,7 +103,7 @@
         top: calc(var(--pico-spacing) * 2);
         background-color: var(--pico-background-color);
         border-radius: var(--pico-border-radius);
-        display: none;
+        box-shadow: var(--pico-dropdown-box-shadow);
         flex-direction: column;
     }
 
