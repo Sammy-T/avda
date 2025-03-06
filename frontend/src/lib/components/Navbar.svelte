@@ -5,8 +5,8 @@
     import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
     import { order, vaultPath } from '$lib/stores';
-    import { closeFile } from '$lib/util';
-    import { getContext } from 'svelte';
+    import { closeFile, STORAGE_KEY_ORDER } from '$lib/util';
+    import { getContext, onMount } from 'svelte';
 
     const displaySearch = getContext('displaySearch');
 
@@ -35,8 +35,17 @@
     function onSortSelect(selected) {
         $order = selected;
 
-        //// TODO: Store & Restore
+        localStorage.setItem(STORAGE_KEY_ORDER, $order);
     }
+
+    onMount(() => {
+        const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
+
+        if(storedOrder) {
+            defaultSort = storedOrder;
+            $order = storedOrder;
+        }
+    });
 </script>
 
 <nav data-theme="dark">

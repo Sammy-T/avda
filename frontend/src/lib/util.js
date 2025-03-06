@@ -3,6 +3,7 @@ import { CloseVault } from '$wails/go/main/App';
 import { BrowserOpenURL } from '$wails/runtime/runtime';
 
 export const STORAGE_KEY_WIN_SIZE = 'avda:window-size';
+export const STORAGE_KEY_ORDER = 'avda:sort-order';
 
 /**
  * Attempts to format the code's characters into 
