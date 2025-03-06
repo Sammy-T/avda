@@ -1,12 +1,20 @@
 <script>
+    import Dropdown from './navbar/Dropdown.svelte';
     import avdaIc from '$assets/images/avda.svg?raw';
     import searchIc from '$assets/images/search.svg?raw';
+    import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
     import { vaultPath } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { getContext } from 'svelte';
 
     const displaySearch = getContext('displaySearch');
+
+    const sortItems = [
+        { label: 'Option 1', value: 'opt1' },
+        { label: 'Option 2', value: 'opt2' },
+        { label: 'Option 3', value: 'opt3' },
+    ];
 
     /**
      * @param {Event} event
@@ -15,6 +23,13 @@
         event.preventDefault();
 
         $displaySearch = !$displaySearch;
+    }
+
+    /**
+     * @param {String} selected
+     */
+    function onSortSelect(selected) {
+        console.log('selected', selected);
     }
 </script>
 
@@ -39,6 +54,11 @@
             <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom" onclick={toggleSearch}>
                 {@html searchIc}
             </a>
+        </li>
+        <li>
+            <Dropdown name="sort" items={sortItems} selected="opt1" onselect={onSortSelect}>
+                {@html sortIc}
+            </Dropdown>
         </li>
         <li>
             <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" onclick={closeFile}>
