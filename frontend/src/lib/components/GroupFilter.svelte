@@ -73,7 +73,6 @@
         position: relative;
         min-width: 3rem;
         text-align: center;
-        z-index: 1;
         gap: calc(var(--pico-spacing) * 1.75);
     }
     
