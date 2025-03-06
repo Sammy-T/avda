@@ -1,6 +1,6 @@
 <script>
     import EntryItem from './EntryItem.svelte';
-    import { items, search } from '$lib/stores';
+    import { items, order, search } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
     import { getContext } from 'svelte';
@@ -8,7 +8,29 @@
     /** @type {import('svelte/store').Writable<boolean>} */
     const displaySearch = getContext('displaySearch');
 
-    let filteredItems = $derived($items.filter((item) => {
+    let sortedItems = $derived.by(() => {
+        if($order === 'custom') {
+            return $items;
+        }
+
+        return [...$items].sort((a, b) => {
+            switch($order) {
+                case 'account-asc':
+                    return a.entry.name.localeCompare(b.entry.name);
+
+                case 'account-desc':
+                    return b.entry.name.localeCompare(a.entry.name);
+
+                case 'issuer-asc':
+                    return a.entry.issuer.localeCompare(b.entry.issuer);
+
+                case 'issuer-desc':
+                    return b.entry.issuer.localeCompare(a.entry.issuer);
+            }
+        });
+    });
+
+    let filteredItems = $derived(sortedItems.filter((item) => {
         const searchRE = new RegExp($search, 'i');
 
         const { issuer, name } = item.entry;

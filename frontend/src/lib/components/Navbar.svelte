@@ -1,12 +1,24 @@
 <script>
+    import Dropdown from './navbar/Dropdown.svelte';
     import avdaIc from '$assets/images/avda.svg?raw';
     import searchIc from '$assets/images/search.svg?raw';
+    import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
-    import { vaultPath } from '$lib/stores';
-    import { closeFile } from '$lib/util';
-    import { getContext } from 'svelte';
+    import { order, vaultPath } from '$lib/stores';
+    import { closeFile, STORAGE_KEY_ORDER } from '$lib/util';
+    import { getContext, onMount } from 'svelte';
 
     const displaySearch = getContext('displaySearch');
+
+    let defaultSort = $state('custom');
+
+    const sortItems = [
+        { label: 'Custom', value: 'custom' },
+        { label: 'Account (A to Z)', value: 'account-asc' },
+        { label: 'Account (Z to A)', value: 'account-desc' },
+        { label: 'Issuer (A to Z)', value: 'issuer-asc' },
+        { label: 'Issuer (Z to A)', value: 'issuer-desc' },
+    ];
 
     /**
      * @param {Event} event
@@ -16,6 +28,24 @@
 
         $displaySearch = !$displaySearch;
     }
+
+    /**
+     * @param {String} selected
+     */
+    function onSortSelect(selected) {
+        $order = selected;
+
+        localStorage.setItem(STORAGE_KEY_ORDER, $order);
+    }
+
+    onMount(() => {
+        const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
+
+        if(storedOrder) {
+            defaultSort = storedOrder;
+            $order = storedOrder;
+        }
+    });
 </script>
 
 <nav data-theme="dark">
@@ -39,6 +69,11 @@
             <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom" onclick={toggleSearch}>
                 {@html searchIc}
             </a>
+        </li>
+        <li>
+            <Dropdown name="sort" items={sortItems} selected={defaultSort} onselect={onSortSelect}>
+                {@html sortIc}
+            </Dropdown>
         </li>
         <li>
             <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" onclick={closeFile}>
