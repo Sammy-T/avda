@@ -2,6 +2,11 @@
     import { onDestroy } from 'svelte';
 
     /**
+     * @callback onselect
+     * @param {String} selected
+     */
+
+    /**
      * @typedef {Object} DropdownItem
      * @property {String} label
      * @property {String} value
@@ -12,12 +17,12 @@
      * @property {String} name
      * @property {DropdownItem[]} items
      * @property {String} selected
-     * @property {Function} onselect
      * @property {import('svelte').Snippet} children
+     * @property {onselect} onselect
      */
 
     /** @type {Props} */
-    let { name, items, selected, onselect, children } = $props();
+    let { name, items, selected, children, onselect } = $props();
 
     let listVisible = $state(false);
 
