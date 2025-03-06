@@ -99,6 +99,7 @@
 
             & > input {
                 height: calc(1rem * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 1 + var(--pico-border-width)* 2);
+                background-color: var(--pico-code-background-color);
             }
         }
     }

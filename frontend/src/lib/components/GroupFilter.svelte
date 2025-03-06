@@ -53,27 +53,19 @@
         padding: calc(var(--pico-spacing) * 0.5) calc(var(--pico-spacing) * 1.5);
         border-bottom: 1px solid var(--pico-muted-border-color);
         background-color: var(--pico-background-color);
-        overflow: visible;
-        position: relative;
         padding-bottom: calc(var(--pico-spacing) * 0.75);
-        
     }
     
     .group-button {
         background: transparent;
         border: none;
-        border-radius: calc(var(--pico-border-radius) * 1.5);
         padding: calc(var(--pico-spacing) * 0.4) calc(var(--pico-spacing) * 0.8);
         margin-right: calc(var(--pico-spacing) * 0.5);
         font-size: 0.9rem;
-        cursor: pointer;
-        white-space: nowrap;
         transition: all 0.2s ease;
         color: var(--pico-muted-color);
-        position: relative;
         min-width: 3rem;
         text-align: center;
-        gap: calc(var(--pico-spacing) * 1.75);
     }
     
     .group-button.active {
