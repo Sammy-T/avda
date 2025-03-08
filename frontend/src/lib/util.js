@@ -85,3 +85,21 @@ export async function closeFile(event = null) {
     items.set([]);
     search.set('');
 }
+
+/**
+ * Generates a consistent color based on a group UUID
+ * @param {string} uuid - The group UUID
+ * @returns {string} - A CSS color string
+ */
+export function getGroupColor(uuid) {
+    let hash = 0;
+    for (let i = 0; i < uuid.length; i++) {
+        hash = ((hash << 5) - hash) + uuid.charCodeAt(i);
+        hash |= 0;
+    }
+    
+    // Generate HSL color with fixed saturation and lightness for readability
+    // Use the hash to determine the hue (0-360)
+    const hue = Math.abs(hash % 360);
+    return `hsl(${hue}, 70%, 60%)`;
+}

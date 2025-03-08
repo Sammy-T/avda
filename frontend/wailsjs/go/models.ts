@@ -19,3 +19,22 @@ export namespace main {
 
 }
 
+export namespace vault {
+	
+	export class Group {
+	    uuid: string;
+	    name: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Group(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.uuid = source["uuid"];
+	        this.name = source["name"];
+	    }
+	}
+
+}
+

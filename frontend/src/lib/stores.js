@@ -20,3 +20,5 @@ async function loadInfo() {
 }
 
 loadInfo();
+export const selectedGroupUuid = writable(null);
+export const groupsMap = writable(new Map());
