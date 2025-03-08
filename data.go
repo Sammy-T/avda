@@ -9,7 +9,6 @@ type Response struct {
 }
 
 type EntryCode struct {
-	Entry  vault.Entry   `json:"entry"`
-	Code   string        `json:"code"`
-	Groups []vault.Group `json:"groups"`
+	Entry vault.Entry `json:"entry"`
+	Code  string      `json:"code"`
 }

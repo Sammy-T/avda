@@ -10,6 +10,10 @@ export function GetAppInfo() {
   return window['go']['main']['App']['GetAppInfo']();
 }
 
+export function GetGroups() {
+  return window['go']['main']['App']['GetGroups']();
+}
+
 export function OpenVault(arg1, arg2) {
   return window['go']['main']['App']['OpenVault'](arg1, arg2);
 }

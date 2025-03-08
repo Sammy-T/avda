@@ -134,29 +134,18 @@ func (a *App) updateOTPs() {
 
 	var entryCodes []EntryCode
 
-	groups := make(map[string]vault.Group)
-
-	for _, group := range a.vaultData.Db.Groups {
-		groups[group.Uuid] = group
-	}
-
 	for _, entry := range a.vaultData.Db.Entries {
 		entryCode := EntryCode{
 			Entry: entry,
 			Code:  fmt.Sprintf("%v", otps[entry.Uuid]),
-			Groups: func() []vault.Group {
-				var entryGroups []vault.Group
-				for _, uuid := range entry.Groups {
-					if group, ok := groups[uuid]; ok {
-						entryGroups = append(entryGroups, group)
-					}
-				}
-				return entryGroups
-			}(),
 		}
 
 		entryCodes = append(entryCodes, entryCode)
 	}
 
 	runtime.EventsEmit(a.ctx, "onCodesUpdated", entryCodes)
+}
+
+func (a *App) GetGroups() []vault.Group {
+	return a.vaultData.Db.Groups
 }

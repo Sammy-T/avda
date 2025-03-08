@@ -1,6 +1,6 @@
 <script>
     import EntryItem from './EntryItem.svelte';
-    import { items, order, search, selectedGroup } from '$lib/stores';
+    import { items, order, search, selectedGroupUuid } from '$lib/stores';
     import { closeFile } from '$lib/util';
     import { EventsOn } from '$wails/runtime/runtime';
     import { getContext } from 'svelte';
@@ -37,8 +37,8 @@
         const matchesSearch = searchRE.test(issuer) || searchRE.test(name);
         
         // Filter by group
-        const matchesGroup = $selectedGroup === null || 
-            (item.entry.groups && item.entry.groups.includes($selectedGroup));
+        const matchesGroup = $selectedGroupUuid === null || 
+            (item.entry.groups && item.entry.groups.includes($selectedGroupUuid));
         
         return matchesSearch && matchesGroup;
     }));

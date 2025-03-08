@@ -1,9 +1,8 @@
 <script>
-    import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
     import { formatCode, getGroupColor } from '$lib/util';
     import { ClipboardSetText } from '$wails/runtime/runtime';
-    import { selectedGroup } from '$lib/stores';
+    import { selectedGroupUuid, groupsMap } from '$lib/stores';
 
     /**
      * @typedef {Object} Props
@@ -17,19 +16,16 @@
 
     let copyMsg = $state(null);
     
-    // Get the first group's color or null if no groups
     let groupColor = $derived(
-        item.groups && item.groups.length > 0 
-            ? getGroupColor(item.groups[0].uuid)
+        entry.groups && entry.groups.length > 0
+            ? $groupsMap.get(entry.groups[0]).color
             : null
     );
     
     // Highlight the selected group's color if it matches
     let highlightColor = $derived(
-        $selectedGroup && item.groups 
-            ? item.groups.find(g => g.uuid === $selectedGroup) 
-                ? getGroupColor($selectedGroup)
-                : null
+        entry.groups?.find(g => g === $selectedGroupUuid) 
+            ? $groupsMap.get($selectedGroupUuid).color
             : groupColor
     );
 

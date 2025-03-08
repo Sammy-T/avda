@@ -1,47 +1,39 @@
 <script>
-    import { items, selectedGroup } from '$lib/stores';
+    import { onMount } from 'svelte';
+    import { selectedGroupUuid, groupsMap } from '$lib/stores';
+    import { GetGroups } from '$wails/go/main/App';
     import { getGroupColor } from '$lib/util';
 
-    let groups = $derived(getUniqueGroups($items));
-
-    function getUniqueGroups(items) {
-        const groupMap = new Map();
+    export let items = [];
+    
+    onMount(async () => {
+        const backendGroups = await GetGroups();
         
-        const allGroup = { uuid: null, name: "All" };
-        groupMap.set(null, allGroup);
-        
-        items.forEach(item => {
-            if (item.groups && item.groups.length > 0) {
-                item.groups.forEach(group => {
-                    if (!groupMap.has(group.uuid)) {
-                        const name = group.name || `Group ${group.uuid.substring(0, 8)}`;
-                        
-                        groupMap.set(group.uuid, { uuid: group.uuid, name });
-                    }
-                });
-            }
+        const mapping = new Map();
+        mapping.set(null, { uuid: null, name: "All", color: null });  
+        backendGroups.forEach(group => {
+            mapping.set(group.uuid, {
+                uuid: group.uuid,
+                name: group.name,
+                color: getGroupColor(group.uuid)
+            });
         });
         
-        // Convert the Map to an array and sort by name
-        return Array.from(groupMap.values()).sort((a, b) => {
-            if (a.uuid === null) return -1; // "All" always first
-            if (b.uuid === null) return 1;
-            return a.name.localeCompare(b.name);
-        });
-    }
-
-    function selectGroup(groupId) {
-        $selectedGroup = groupId;
+        groupsMap.set(mapping);
+    });
+    
+    function selectGroup(groupUuid) {
+        selectedGroupUuid.set(groupUuid);
     }
 </script>
 
 <div class="group-filter">
-    {#each groups as group}
+    {#each Array.from($groupsMap.entries()) as [uuid, group]}
         <button 
             class="group-button" 
-            class:active={$selectedGroup === group.uuid}
+            class:active={$selectedGroupUuid === group.uuid}
             onclick={() => selectGroup(group.uuid)}
-            style={group.uuid ? `--group-color: ${getGroupColor(group.uuid)}` : ''}
+            style={group.uuid ? `--group-color: ${group.color}` : ''}
         >
             {group.name}
         </button>
