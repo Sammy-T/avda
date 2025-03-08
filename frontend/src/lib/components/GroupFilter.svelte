@@ -11,7 +11,7 @@
         
         const mapping = new Map();
         mapping.set(null, { uuid: null, name: "All", color: null });  
-        backendGroups.forEach(group => {
+        backendGroups?.forEach(group => {
             mapping.set(group.uuid, {
                 uuid: group.uuid,
                 name: group.name,
