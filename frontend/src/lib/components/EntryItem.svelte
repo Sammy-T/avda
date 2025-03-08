@@ -25,7 +25,7 @@
     // Highlight the selected group's color if it matches
     let highlightColor = $derived(
         entry.groups?.find(g => g === $selectedGroupUuid) 
-            ? $groupsMap.get($selectedGroupUuid).color
+            ? $groupsMap.get($selectedGroupUuid)?.color
             : groupColor
     );
 
