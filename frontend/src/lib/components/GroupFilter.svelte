@@ -4,8 +4,6 @@
     import { GetGroups } from '$wails/go/main/App';
     import { getGroupColor } from '$lib/util';
 
-    export let items = [];
-    
     onMount(async () => {
         const backendGroups = await GetGroups();
         
@@ -19,11 +17,14 @@
             });
         });
         
-        groupsMap.set(mapping);
+        $groupsMap = mapping;
+        
+        // Reset the currently selected group when loading a file without a matching group
+        if($selectedGroupUuid && !$groupsMap.has($selectedGroupUuid)) $selectedGroupUuid = null;
     });
     
     function selectGroup(groupUuid) {
-        selectedGroupUuid.set(groupUuid);
+        $selectedGroupUuid = groupUuid;
     }
 </script>
 
