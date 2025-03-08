@@ -18,7 +18,7 @@
     
     let groupColor = $derived(
         entry.groups && entry.groups.length > 0
-            ? $groupsMap.get(entry.groups[0]).color
+            ? $groupsMap.get(entry.groups[0])?.color
             : null
     );
     
