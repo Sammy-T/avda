@@ -21,8 +21,8 @@ footer svg {
     max-height: 18px;
 }
 
-.entry {
-    & > svg, & > img {
+.entry .icon {
+    & svg, & img {
         width: 100%;
         height: auto;
     }

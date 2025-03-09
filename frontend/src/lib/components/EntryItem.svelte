@@ -1,4 +1,5 @@
 <script>
+    import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
     import { formatCode } from '$lib/util';
     import { ClipboardSetText } from '$wails/runtime/runtime';
@@ -49,13 +50,17 @@
 </script>
 
 <article class="entry" style={`--group-color: ${highlightColor ?? 'transparent'};`}>
-    {#if entry.icon}
-        <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
-    {:else}
-        <div class="initial-circle">
-            {issuerInitial}
-        </div>
-    {/if}
+    <div class="icon" style={`--icon-color: ${highlightColor ?? '#333333'};`}>
+        {#if entry.icon}
+            <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
+        {:else}
+            {@html blankImgIc}
+
+            <div class="initial">
+                {issuerInitial}
+            </div>
+        {/if}
+    </div>
 
     <div class="codeInfo">
         <p class="entry-title"><strong>{entry.issuer}</strong> <span class="entry-name">({entry.name})</span></p>
@@ -75,6 +80,15 @@
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
         border-left: 4px solid var(--group-color);
+    }
+
+    .icon {
+        position: relative;
+
+        & :global svg {
+            overflow: visible;
+            color: var(--icon-color);
+        }
     }
 
     .codeInfo {
@@ -103,16 +117,17 @@
         padding: calc(var(--pico-form-element-spacing-vertical) * 0.3) calc(var(--pico-form-element-spacing-horizontal) * 0.3);
     }
 
-    .initial-circle {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        background-color: var(--group-color, var(--pico-primary));
+    .initial {
         color: var(--pico-primary-inverse);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: calc(1.15vw + 12px);
     }
 </style>
