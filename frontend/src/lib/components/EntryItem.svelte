@@ -1,6 +1,6 @@
 <script>
     import copyIc from '$assets/images/copy.svg?raw';
-    import { formatCode, getGroupColor } from '$lib/util';
+    import { formatCode } from '$lib/util';
     import { ClipboardSetText } from '$wails/runtime/runtime';
     import { selectedGroupUuid, groupsMap } from '$lib/stores';
 
@@ -30,9 +30,7 @@
     );
 
     // Get the first letter of issuer for the fallback icon
-    let issuerInitial = $derived(
-        entry.issuer ? entry.issuer.charAt(0).toUpperCase() : '?'
-    );
+    let issuerInitial = entry.issuer.charAt(0).toUpperCase();
 
     async function copyCode() {
         const success = await ClipboardSetText(item.code);
@@ -50,7 +48,7 @@
     }
 </script>
 
-<article class="entry" style={highlightColor ? `--group-color: ${highlightColor}; border-left: 4px solid var(--group-color);` : ''}>
+<article class="entry" style={`--group-color: ${highlightColor ?? 'transparent'};`}>
     {#if entry.icon}
         <img src={`data:${entry.icon_mime};base64,${entry.icon}`} alt="">
     {:else}
@@ -73,11 +71,10 @@
     article {
         margin: 0;
         display: grid;
-        grid-template-columns: 11.5% minmax(0, 1fr) min-content;
+        grid-template-columns: 11.5% 1fr min-content;
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
-        padding-left: calc(var(--pico-spacing) * 0.5);
-        transition: background-color 0.2s ease;
+        border-left: 4px solid var(--group-color);
     }
 
     .codeInfo {
@@ -90,10 +87,12 @@
     }
     
     .entry-title {
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 100%;
+
+        & > * {
+            white-space: nowrap;
+        }
     }
     
     .entry-name {
