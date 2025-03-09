@@ -44,8 +44,8 @@
 <style>
     .group-filter {
         padding: calc(var(--pico-spacing) * 0.5) calc(var(--pico-spacing) * 1.5);
-        border-bottom: 1px solid var(--pico-muted-border-color);
-        background-color: var(--pico-background-color);
+        border-bottom: 1px solid #ffffffb0;
+        background-color: #a3b2cc61;
         padding-bottom: calc(var(--pico-spacing) * 0.75);
     }
     
