@@ -125,7 +125,7 @@
         padding: 0 calc(var(--pico-nav-element-spacing-horizontal) * 4);
         overflow-x: clip;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr max-content 1fr;
     }
 
     ul:last-child {
