@@ -5,6 +5,7 @@ import { BrowserOpenURL } from '$wails/runtime/runtime';
 export const STORAGE_KEY_WIN_SIZE = 'avda:window-size';
 export const STORAGE_KEY_RECENT_FILES = 'avda:recent-files';
 export const STORAGE_KEY_ORDER = 'avda:sort-order';
+export const STORAGE_KEY_SHOW_GROUPS = 'avda:display-groups';
 
 /**
  * Attempts to format the code's characters into 

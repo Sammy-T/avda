@@ -2,13 +2,16 @@
     import Dropdown from './navbar/Dropdown.svelte';
     import avdaIc from '$assets/images/avda.svg?raw';
     import searchIc from '$assets/images/search.svg?raw';
+    import groupsIc from '$assets/images/category-2.svg?raw';
     import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
-    import { order, vaultPath } from '$lib/stores';
-    import { closeFile, STORAGE_KEY_ORDER } from '$lib/util';
+    import { order, selectedGroupUuid, vaultPath } from '$lib/stores';
+    import { closeFile, STORAGE_KEY_ORDER, STORAGE_KEY_SHOW_GROUPS } from '$lib/util';
     import { getContext, onMount } from 'svelte';
+    import { GetGroups } from '$wails/go/main/App';
 
     const displaySearch = getContext('displaySearch');
+    const displayGroups = getContext('displayGroups');
 
     let defaultSort = $state('custom');
 
@@ -30,6 +33,20 @@
     }
 
     /**
+     * @param {Event} event
+     */
+    function toggleGroups(event) {
+        event.preventDefault();
+
+        // @ts-ignore
+        event.currentTarget.blur(); // Remove focus from the anchor element so the tooltip doesn't remain
+
+        $displayGroups = !$displayGroups;
+
+        localStorage.setItem(STORAGE_KEY_SHOW_GROUPS, $displayGroups);
+    }
+
+    /**
      * @param {String} selected
      */
     function onSortSelect(selected) {
@@ -38,13 +55,23 @@
         localStorage.setItem(STORAGE_KEY_ORDER, $order);
     }
 
-    onMount(() => {
+    onMount(async () => {
         const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
+        const storedShowGroups = localStorage.getItem(STORAGE_KEY_SHOW_GROUPS) === 'true';
 
         if(storedOrder) {
             defaultSort = storedOrder;
             $order = storedOrder;
         }
+
+        $displayGroups = storedShowGroups;
+
+        if(!$selectedGroupUuid) return;
+
+        const groups = await GetGroups();
+
+        // Reset the currently selected group when loading a file without a matching group
+        if(!groups?.find((g) => g.uuid === $selectedGroupUuid)) $selectedGroupUuid = null;
     });
 </script>
 
@@ -71,6 +98,11 @@
             </a>
         </li>
         <li>
+            <a href="##" class="contrast" data-tooltip="Groups" data-placement="bottom" onclick={toggleGroups}>
+                {@html groupsIc}
+            </a>
+        </li>
+        <li>
             <Dropdown name="sort" items={sortItems} selected={defaultSort} onselect={onSortSelect}>
                 {@html sortIc}
             </Dropdown>
@@ -92,6 +124,12 @@
         */
         padding: 0 calc(var(--pico-nav-element-spacing-horizontal) * 4);
         overflow-x: clip;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    ul:last-child {
+        justify-content: end;
     }
 
     li strong {
@@ -102,7 +140,11 @@
         color: var(--pico-primary-background);
     }
 
-    .filename a:hover {
-        text-decoration: none;
+    .filename {
+        justify-content: center;
+
+        a:hover {
+            text-decoration: none;
+        }
     }
 </style>

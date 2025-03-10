@@ -18,9 +18,6 @@
         });
         
         $groupsMap = mapping;
-        
-        // Reset the currently selected group when loading a file without a matching group
-        if($selectedGroupUuid && !$groupsMap.has($selectedGroupUuid)) $selectedGroupUuid = null;
     });
     
     function selectGroup(groupUuid) {

@@ -16,6 +16,9 @@
     const displaySearch = writable(false);
     setContext('displaySearch', displaySearch);
 
+    const displayGroups = writable(false);
+    setContext('displayGroups', displayGroups);
+
     $effect(() => {
         if($displaySearch) searchInput?.focus();
     });
@@ -62,7 +65,10 @@
 </header>
 
 <main>
-    <GroupFilter />
+    {#if $displayGroups}
+        <GroupFilter />
+    {/if}
+
     <EntryList />
 </main>
 
