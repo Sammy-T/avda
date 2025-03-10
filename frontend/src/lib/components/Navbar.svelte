@@ -5,8 +5,8 @@
     import groupsIc from '$assets/images/category-2.svg?raw';
     import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
-    import { order, selectedGroupUuid, vaultPath } from '$lib/stores';
-    import { closeFile, STORAGE_KEY_ORDER, STORAGE_KEY_SHOW_GROUPS } from '$lib/util';
+    import { order, selectedGroupUuid, vaultPath } from '$lib/stores.svelte';
+    import { closeFile, STORAGE_KEY_ORDER, STORAGE_KEY_SHOW_GROUPS } from '$lib/util.svelte';
     import { getContext, onMount } from 'svelte';
     import { GetGroups } from '$wails/go/main/App';
 

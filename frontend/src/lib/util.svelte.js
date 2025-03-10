@@ -1,4 +1,4 @@
-import { vaultPath, search, items } from './stores';
+import { vaultPath, search, items } from './stores.svelte';
 import { CloseVault } from '$wails/go/main/App';
 import { BrowserOpenURL } from '$wails/runtime/runtime';
 

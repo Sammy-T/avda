@@ -1,9 +1,9 @@
 <script>
     import blankImgIc from '$assets/images/entry-blank-icon.svg?raw';
     import copyIc from '$assets/images/copy.svg?raw';
-    import { formatCode } from '$lib/util';
+    import { formatCode } from '$lib/util.svelte';
     import { ClipboardSetText } from '$wails/runtime/runtime';
-    import { selectedGroupUuid, groupsMap } from '$lib/stores';
+    import { selectedGroupUuid, groupsMap } from '$lib/stores.svelte';
 
     /**
      * @typedef {Object} Props

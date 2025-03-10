@@ -1,7 +1,7 @@
 <script>
     import EntryItem from './EntryItem.svelte';
-    import { items, order, search, selectedGroupUuid } from '$lib/stores';
-    import { closeFile } from '$lib/util';
+    import { items, order, search, selectedGroupUuid } from '$lib/stores.svelte';
+    import { closeFile } from '$lib/util.svelte';
     import { EventsOn } from '$wails/runtime/runtime';
     import { getContext } from 'svelte';
 

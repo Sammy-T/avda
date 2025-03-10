@@ -3,7 +3,7 @@
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
     import GroupFilter from '$lib/components/GroupFilter.svelte';
-    import { search } from '$lib/stores';
+    import { search } from '$lib/stores.svelte';
     import { Tween } from 'svelte/motion';
     import { writable } from 'svelte/store';
     import { setContext } from 'svelte';
