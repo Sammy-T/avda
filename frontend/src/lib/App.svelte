@@ -1,10 +1,10 @@
 <script>
     import Main from '$lib/pages/Main.svelte';
     import SelectVault from './modals/SelectVault.svelte';
-    import { vaultPath } from './stores';
+    import { vaultPath } from './stores.svelte';
     import { onMount } from 'svelte';
     import { WindowGetSize, WindowIsMaximised, WindowSetSize } from '$wails/runtime/runtime';
-    import { STORAGE_KEY_WIN_SIZE } from './util';
+    import { STORAGE_KEY_WIN_SIZE } from './util.svelte';
 
     let windowInitFinished = false;
 

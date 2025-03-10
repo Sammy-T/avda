@@ -1,8 +1,8 @@
 <script>
     import { onMount } from 'svelte';
-    import { selectedGroupUuid, groupsMap } from '$lib/stores';
+    import { selectedGroupUuid, groupsMap } from '$lib/stores.svelte';
     import { GetGroups } from '$wails/go/main/App';
-    import { getGroupColor } from '$lib/util';
+    import { getGroupColor } from '$lib/util.svelte';
 
     onMount(async () => {
         const backendGroups = await GetGroups();

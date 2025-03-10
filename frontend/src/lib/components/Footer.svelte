@@ -1,8 +1,8 @@
 <script>
     import githubIc from '$assets/images/brand-github.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { releaseUrl, version } from '$lib/stores';
-    import { openExtUrl } from '$lib/util';
+    import { releaseUrl, version } from '$lib/stores.svelte';
+    import { openExtUrl } from '$lib/util.svelte';
 </script>
 
 <footer data-theme="dark">

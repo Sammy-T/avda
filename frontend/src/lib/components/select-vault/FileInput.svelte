@@ -1,6 +1,6 @@
 <script>
     import chevronDownIc from '$assets/images/chevron-down.svg?raw';
-    import { STORAGE_KEY_RECENT_FILES } from '$lib/util';
+    import { STORAGE_KEY_RECENT_FILES } from '$lib/util.svelte';
     import { SelectVault } from '$wails/go/main/App';
     import { OnFileDrop, OnFileDropOff } from '$wails/runtime/runtime';
     import { onMount } from 'svelte';

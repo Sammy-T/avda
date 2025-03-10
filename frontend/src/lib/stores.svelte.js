@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { GetAppInfo } from '$wails/go/main/App';
-import { getLatestReleaseInfo } from './util';
+import { getLatestReleaseInfo } from './util.svelte';
 
 export const version = writable('');
 export const releaseUrl = writable();

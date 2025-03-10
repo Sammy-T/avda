@@ -3,8 +3,8 @@
     import avdaIc from '$assets/images/avda.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
     import { OpenVault } from '$wails/go/main/App';
-    import { openExtUrl } from '$lib/util';
-    import { releaseUrl, vaultPath } from '$lib/stores';
+    import { openExtUrl } from '$lib/util.svelte';
+    import { releaseUrl, vaultPath } from '$lib/stores.svelte';
 
     let respError = $state(false);
 
