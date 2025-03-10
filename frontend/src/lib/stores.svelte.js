@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import { GetAppInfo } from '$wails/go/main/App';
 import { getLatestReleaseInfo } from './util.svelte';
 
@@ -16,7 +16,7 @@ async function loadInfo() {
     version.set(resp.data.productVersion);
 
     const releaseInfo = await getLatestReleaseInfo();
-    if(!releaseInfo || version === releaseInfo.tag_name.replace('v', '')) return;
+    if(!releaseInfo || get(version) === releaseInfo.tag_name.replace('v', '')) return;
 
     releaseUrl.set(releaseInfo.html_url);
 }
