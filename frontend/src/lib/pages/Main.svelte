@@ -2,6 +2,7 @@
     import Navbar from '$lib/components/Navbar.svelte';
     import Footer from '$lib/components/Footer.svelte';
     import EntryList from '$lib/components/EntryList.svelte';
+    import GroupFilter from '$lib/components/GroupFilter.svelte';
     import { search } from '$lib/stores';
     import { Tween } from 'svelte/motion';
     import { writable } from 'svelte/store';
@@ -14,6 +15,9 @@
 
     const displaySearch = writable(false);
     setContext('displaySearch', displaySearch);
+
+    const displayGroups = writable(false);
+    setContext('displayGroups', displayGroups);
 
     $effect(() => {
         if($displaySearch) searchInput?.focus();
@@ -61,6 +65,10 @@
 </header>
 
 <main>
+    {#if $displayGroups}
+        <GroupFilter />
+    {/if}
+
     <EntryList />
 </main>
 

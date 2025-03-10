@@ -5,6 +5,7 @@ import { BrowserOpenURL } from '$wails/runtime/runtime';
 export const STORAGE_KEY_WIN_SIZE = 'avda:window-size';
 export const STORAGE_KEY_RECENT_FILES = 'avda:recent-files';
 export const STORAGE_KEY_ORDER = 'avda:sort-order';
+export const STORAGE_KEY_SHOW_GROUPS = 'avda:display-groups';
 
 /**
  * Attempts to format the code's characters into 
@@ -84,4 +85,22 @@ export async function closeFile(event = null) {
     vaultPath.set(null);
     items.set([]);
     search.set('');
+}
+
+/**
+ * Generates a consistent color based on a group UUID
+ * @param {string} uuid - The group UUID
+ * @returns {string} - A CSS color string
+ */
+export function getGroupColor(uuid) {
+    let hash = 0;
+    for (let i = 0; i < uuid.length; i++) {
+        hash = ((hash << 5) - hash) + uuid.charCodeAt(i);
+        hash |= 0;
+    }
+    
+    // Generate HSL color with fixed saturation and lightness for readability
+    // Use the hash to determine the hue (0-360)
+    const hue = Math.abs(hash % 360);
+    return `hsl(${hue}, 70%, 60%)`;
 }

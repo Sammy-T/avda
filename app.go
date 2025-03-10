@@ -145,3 +145,7 @@ func (a *App) updateOTPs() {
 
 	runtime.EventsEmit(a.ctx, "onCodesUpdated", entryCodes)
 }
+
+func (a *App) GetGroups() []vault.Group {
+	return a.vaultData.Db.Groups
+}

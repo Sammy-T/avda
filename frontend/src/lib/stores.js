@@ -8,6 +8,8 @@ export const vaultPath = writable();
 export const items = writable([]);
 export const search = writable('');
 export const order = writable('');
+export const selectedGroupUuid = writable(null);
+export const groupsMap = writable(new Map());
 
 async function loadInfo() {
     const resp = await GetAppInfo();
