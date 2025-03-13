@@ -1,24 +1,5 @@
 <script>
-    import { onMount } from 'svelte';
     import { selectedGroupUuid, groupsMap } from '$lib/stores.svelte';
-    import { GetGroups } from '$wails/go/main/App';
-    import { getGroupColor } from '$lib/util.svelte';
-
-    onMount(async () => {
-        const backendGroups = await GetGroups();
-        
-        const mapping = new Map();
-        mapping.set(null, { uuid: null, name: "All", color: null });  
-        backendGroups?.forEach(group => {
-            mapping.set(group.uuid, {
-                uuid: group.uuid,
-                name: group.name,
-                color: getGroupColor(group.uuid)
-            });
-        });
-        
-        $groupsMap = mapping;
-    });
     
     function selectGroup(groupUuid) {
         $selectedGroupUuid = groupUuid;
