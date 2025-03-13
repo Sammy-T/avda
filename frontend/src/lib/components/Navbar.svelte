@@ -5,8 +5,8 @@
     import groupsIc from '$assets/images/category-2.svg?raw';
     import sortIc from '$assets/images/sort-descending.svg?raw';
     import closeFileIc from '$assets/images/file-minus.svg?raw';
-    import { order, selectedGroupUuid, vaultPath } from '$lib/stores.svelte';
-    import { closeFile, STORAGE_KEY_ORDER, STORAGE_KEY_SHOW_GROUPS } from '$lib/util.svelte';
+    import { groupsMap, order, selectedGroupUuid, vaultPath } from '$lib/stores.svelte';
+    import { closeFile, getGroupColor, STORAGE_KEY_ORDER, STORAGE_KEY_SHOW_GROUPS } from '$lib/util.svelte';
     import { getContext, onMount } from 'svelte';
     import { GetGroups } from '$wails/go/main/App';
 
@@ -55,23 +55,42 @@
         localStorage.setItem(STORAGE_KEY_ORDER, $order);
     }
 
-    onMount(async () => {
-        const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
+    async function initGroups() {
         const storedShowGroups = localStorage.getItem(STORAGE_KEY_SHOW_GROUPS) === 'true';
+
+        const groups = await GetGroups();
+
+        const mapping = new Map();
+        mapping.set(null, { uuid: null, name: "All", color: null });
+        
+        groups?.forEach(group => {
+            mapping.set(group.uuid, {
+                uuid: group.uuid,
+                name: group.name,
+                color: getGroupColor(group.uuid)
+            });
+        });
+
+        $groupsMap = mapping;
+
+        // Reset the currently selected group when loading a file without a matching group
+        if(!groups?.find((g) => g.uuid === $selectedGroupUuid)) $selectedGroupUuid = null;
+
+        $displayGroups = storedShowGroups;
+    }
+
+    function initSort() {
+        const storedOrder = localStorage.getItem(STORAGE_KEY_ORDER);
 
         if(storedOrder) {
             defaultSort = storedOrder;
             $order = storedOrder;
         }
+    }
 
-        $displayGroups = storedShowGroups;
-
-        if(!$selectedGroupUuid) return;
-
-        const groups = await GetGroups();
-
-        // Reset the currently selected group when loading a file without a matching group
-        if(!groups?.find((g) => g.uuid === $selectedGroupUuid)) $selectedGroupUuid = null;
+    onMount(() => {
+        initSort();
+        initGroups();
     });
 </script>
 
