@@ -29,6 +29,9 @@
     function toggleSearch(event) {
         event.preventDefault();
 
+        // @ts-ignore
+        event.currentTarget.blur(); // Remove focus from the anchor element so the tooltip doesn't remain
+
         $displaySearch = !$displaySearch;
     }
 
