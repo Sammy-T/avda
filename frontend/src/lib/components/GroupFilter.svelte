@@ -24,7 +24,11 @@
         padding: calc(var(--pico-spacing) * 0.5) calc(var(--pico-spacing) * 1.5);
         border-bottom: 1px solid #ffffffb0;
         background-color: #a3b2cc61;
+        backdrop-filter: blur(4px);
         padding-bottom: calc(var(--pico-spacing) * 0.75);
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
     
     .group-button {
