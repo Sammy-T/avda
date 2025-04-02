@@ -98,7 +98,7 @@
 <style>
     .dropdown-container {
         position: relative;
-        z-index: 1;
+        z-index: 3;
     }
 
     .dropdown-list {
