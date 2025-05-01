@@ -11,7 +11,7 @@
   "devDependencies": {
     "@picocss/pico": "^2.0.6",
     "@sveltejs/vite-plugin-svelte": "^5.0.1",
-    "svelte": "^5.25.6",
+    "svelte": "^5.28.2",
     "vite": "^6.2.6"
   }
 }
