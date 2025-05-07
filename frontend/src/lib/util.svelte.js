@@ -6,6 +6,8 @@ export const STORAGE_KEY_WIN_SIZE = 'avda:window-size';
 export const STORAGE_KEY_RECENT_FILES = 'avda:recent-files';
 export const STORAGE_KEY_ORDER = 'avda:sort-order';
 export const STORAGE_KEY_SHOW_GROUPS = 'avda:display-groups';
+export const STORAGE_KEY_AUTO_CLOSE = 'avda:auto-close';
+export const STORAGE_KEY_AUTO_CLOSE_TIME = 'avda:auto-close-time';
 
 /**
  * Attempts to format the code's characters into 

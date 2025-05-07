@@ -165,7 +165,7 @@
     .filename {
         justify-content: center;
 
-        a:hover {
+        & a:hover {
             text-decoration: none;
         }
     }

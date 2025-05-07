@@ -10,6 +10,7 @@ export const search = writable('');
 export const order = writable('');
 export const selectedGroupUuid = writable(null);
 export const groupsMap = writable(new Map());
+export const showSettings = writable(false);
 
 async function loadInfo() {
     const resp = await GetAppInfo();
