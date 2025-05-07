@@ -6,10 +6,13 @@
     import { search } from '$lib/stores.svelte';
     import { Tween } from 'svelte/motion';
     import { writable } from 'svelte/store';
-    import { setContext } from 'svelte';
+    import { onDestroy, onMount, setContext } from 'svelte';
     import { EventsOn } from '$wails/runtime/runtime';
+    import { GetTTN } from '$wails/go/main/App';
+    import { closeFile, STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME } from '$lib/util.svelte';
 
     const countdown = new Tween(30000);
+    let timeoutId;
 
     let searchInput = $state();
 
@@ -50,6 +53,24 @@
     }
 
     EventsOn("onTimeUpdated", updateCountdown);
+
+    onMount(async () => {
+        const ttn = await GetTTN();
+        updateCountdown(ttn);
+
+        const autoClose = localStorage.getItem(STORAGE_KEY_AUTO_CLOSE) === 'true';
+        const autoCloseTime = Number(localStorage.getItem(STORAGE_KEY_AUTO_CLOSE_TIME)) || 5;
+
+        const timeout = autoCloseTime * 60 * 1000;
+
+        if(autoClose) {
+            timeoutId = setTimeout(closeFile, timeout);
+        }
+    });
+
+    onDestroy(() => {
+        clearTimeout(timeoutId);
+    });
 </script>
 
 <header>

@@ -14,6 +14,10 @@ export function GetGroups() {
   return window['go']['main']['App']['GetGroups']();
 }
 
+export function GetTTN() {
+  return window['go']['main']['App']['GetTTN']();
+}
+
 export function OpenVault(arg1, arg2) {
   return window['go']['main']['App']['OpenVault'](arg1, arg2);
 }

@@ -1,13 +1,28 @@
 <script>
+    import settingsIc from '$assets/images/settings.svg?raw';
     import githubIc from '$assets/images/brand-github.svg?raw';
     import infoIc from '$assets/images/info-circle.svg?raw';
-    import { releaseUrl, version } from '$lib/stores.svelte';
+    import { releaseUrl, showSettings, version } from '$lib/stores.svelte';
     import { openExtUrl } from '$lib/util.svelte';
+
+    /**
+     * @param {Event} event
+     */
+    function openSettings(event) {
+        event.preventDefault();
+
+        $showSettings = true;
+    }
 </script>
 
 <footer data-theme="dark">
     <nav>
         <ul>
+            <li>
+                <a href="##" class="contrast" data-tooltip="Settings" onclick={openSettings}>
+                    {@html settingsIc}
+                </a>
+            </li>
             <li>
                 <a href="https://github.com/Sammy-T/avda" class="contrast" data-tooltip="GitHub" 
                     onclick={openExtUrl}>
