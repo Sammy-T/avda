@@ -103,6 +103,11 @@ func (a *App) CloseVault() {
 	a.vaultData = nil
 }
 
+// GetTTN returns the current time-til-next.
+func (a *App) GetTTN() int64 {
+	return avdu.GetTTN()
+}
+
 // watchOTPs loops through updating the OTPs
 // until the current vault data is removed.
 //

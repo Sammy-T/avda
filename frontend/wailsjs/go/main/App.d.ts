@@ -9,6 +9,8 @@ export function GetAppInfo():Promise<main.Response>;
 
 export function GetGroups():Promise<Array<vault.Group>>;
 
+export function GetTTN():Promise<number>;
+
 export function OpenVault(arg1:string,arg2:string):Promise<main.Response>;
 
 export function SelectVault():Promise<main.Response>;

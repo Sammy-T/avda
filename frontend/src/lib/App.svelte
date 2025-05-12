@@ -1,7 +1,8 @@
 <script>
     import Main from '$lib/pages/Main.svelte';
     import SelectVault from './modals/SelectVault.svelte';
-    import { vaultPath } from './stores.svelte';
+    import Settings from './modals/Settings.svelte';
+    import { showSettings, vaultPath } from './stores.svelte';
     import { onMount } from 'svelte';
     import { WindowGetSize, WindowIsMaximised, WindowSetSize } from '$wails/runtime/runtime';
     import { STORAGE_KEY_WIN_SIZE } from './util.svelte';
@@ -83,6 +84,8 @@
 
 {#if !$vaultPath}
     <SelectVault />
+{:else if $showSettings}
+    <Settings />
 {:else}
     <Main />
 {/if}
