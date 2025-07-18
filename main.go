@@ -27,7 +27,8 @@ func main() {
 		DragAndDrop: &options.DragAndDrop{
 			EnableFileDrop: true,
 		},
-		OnStartup: app.startup,
+		EnableDefaultContextMenu: true,
+		OnStartup:                app.startup,
 		Bind: []any{
 			app,
 		},
