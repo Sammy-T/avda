@@ -20,6 +20,10 @@
         respError = false;
     }
 
+    function onVisibilityChange() {
+        if(selected && document.visibilityState === 'visible') pwdInput.focus();
+    }
+
     /**
      * Passes the filepath and password to the Go backend
      * to attempt to read the vault file.
@@ -51,6 +55,10 @@
 
     onMount(() => {
         if(selected) pwdInput.focus();
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => document.removeEventListener('visibilitychange', onVisibilityChange);
     });
 </script>
 
