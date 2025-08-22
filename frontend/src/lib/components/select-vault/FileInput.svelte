@@ -8,14 +8,12 @@
     /**
      * @typedef {Object} Props
      * @property {String} [placeholder]
+     * @property {String} [selected]
      * @property {Function} onselect
      */
 
     /** @type {Props} */
-    let { placeholder = 'No file chosen', onselect } = $props();
-
-    /** @type {String} */
-    let selected = $state();
+    let { placeholder = 'No file chosen', selected = $bindable(), onselect } = $props();
 
     /** @type {String[]} */
     let recentFiles = $state([]);
@@ -43,6 +41,8 @@
         updateRecentFiles();
 
         recentDropdown.removeAttribute('open');
+
+        onselect();
     }
 
     /**

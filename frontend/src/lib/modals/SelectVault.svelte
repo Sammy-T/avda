@@ -5,11 +5,23 @@
     import { OpenVault } from '$wails/go/main/App';
     import { openExtUrl } from '$lib/util.svelte';
     import { releaseUrl, vaultPath } from '$lib/stores.svelte';
+    import { onMount } from 'svelte';
 
     let respError = $state(false);
 
+    /** @type {String} */
+    let selected = $state();
+
+    /** @type {HTMLInputElement} */
+    let pwdInput;
+
     function onSelect() {
+        pwdInput.focus();
         respError = false;
+    }
+
+    function onVisibilityChange() {
+        if(selected && document.visibilityState === 'visible') pwdInput.focus();
     }
 
     /**
@@ -40,6 +52,14 @@
 
         $vaultPath = filepath;
     }
+
+    onMount(() => {
+        if(selected) pwdInput.focus();
+
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+    });
 </script>
 
 <dialog open>
@@ -49,9 +69,9 @@
         <h5>Select vault file</h5>
 
         <form onsubmit={onSubmit}>
-            <FileInput onselect={onSelect} />
+            <FileInput onselect={onSelect} bind:selected />
 
-            <input type="password" name="password" placeholder="Password" />
+            <input type="password" name="password" placeholder="Password" bind:this={pwdInput} />
             <small>Leave blank for unencrypted vault files.</small>
 
             {#if respError}
