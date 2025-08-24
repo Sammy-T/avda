@@ -88,7 +88,7 @@
         {@render children()}
     </a>
     
-    <ul class="dropdown-list" data-theme="light" style:display={listVisible ? 'flex' : 'none'}>
+    <ul class="dropdown-list" style:display={listVisible ? 'flex' : 'none'}>
         {#each items as item}
             {@render dropdownItem(item)}
         {/each}
