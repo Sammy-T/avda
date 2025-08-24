@@ -21,9 +21,11 @@
 
 <style>
     .group-filter {
+        --bg: light-dark(#b5c6e2, #212833);
+
         padding: calc(var(--pico-spacing) * 0.5) calc(var(--pico-spacing) * 1.5);
-        border-bottom: 1px solid #ffffffb0;
-        background-color: #b5c6e2;
+        border-bottom: 1px solid #ffffff6a;
+        background-color: var(--bg);
         padding-bottom: calc(var(--pico-spacing) * 0.75);
         position: sticky;
         top: 0;

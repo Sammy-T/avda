@@ -84,11 +84,11 @@
 {/snippet}
 
 <div class="dropdown-container" bind:this={dropdownContainer}>
-    <a href="##" class="contrast" data-tooltip="Sort" data-placement="bottom" onclick={toggleList}>
+    <a href="##" data-tooltip="Sort" data-placement="bottom" onclick={toggleList}>
         {@render children()}
     </a>
     
-    <ul class="dropdown-list" data-theme="light" style:display={listVisible ? 'flex' : 'none'}>
+    <ul class="dropdown-list" style:display={listVisible ? 'flex' : 'none'}>
         {#each items as item}
             {@render dropdownItem(item)}
         {/each}
@@ -99,6 +99,10 @@
     .dropdown-container {
         position: relative;
         z-index: 3;
+    }
+
+    a {
+        color: var(--nav-fg-color);
     }
 
     .dropdown-list {

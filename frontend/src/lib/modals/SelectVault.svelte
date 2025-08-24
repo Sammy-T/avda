@@ -91,9 +91,12 @@
 
 <style>
     article {
+        --bg-grad-1: light-dark(#d7e3f4ff, #191a1d);
+        --bg-grad-2: light-dark(#8f9bc9ff, #353d5b);
+
         max-width: 500px;
         padding: calc(var(--pico-spacing) * 2);
-        background-image: linear-gradient(135deg, #d7e3f4ff, #8f9bc9ff);
+        background-image: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
     }
 
     h1 {

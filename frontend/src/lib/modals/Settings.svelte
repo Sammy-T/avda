@@ -1,14 +1,20 @@
 <script>
     import closeIc from '$assets/images/x.svg?raw';
     import { showSettings } from '$lib/stores.svelte';
-    import { STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME } from '$lib/util.svelte';
+    import { STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME, STORAGE_KEY_THEME } from '$lib/util.svelte';
     import { onMount } from 'svelte';
 
+    let theme = $state('');
     let autoClose = $state(false);
     let autoCloseTime = $state(5);
 
     /** @type {HTMLFormElement} */
     let form;
+
+    function onThemeSelect(ev) {
+        const body = document.querySelector('body');
+        body.dataset.theme = ev.target.value;
+    }
 
     function save() {
         const formData = new FormData(form);
@@ -30,6 +36,7 @@
     }
 
     onMount(() => {
+        theme = localStorage.getItem(STORAGE_KEY_THEME) || '';
         autoClose = localStorage.getItem(STORAGE_KEY_AUTO_CLOSE) === 'true';
         autoCloseTime = Number(localStorage.getItem(STORAGE_KEY_AUTO_CLOSE_TIME)) || 5;
     });
@@ -45,6 +52,13 @@
 
         <form onsubmit={(ev) => ev.preventDefault()} bind:this={form}>
             <div class="fields">
+                <label for="theme">Theme</label>
+                <select name="theme" bind:value={theme} oninput={onThemeSelect}>
+                    <option value="">System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+
                 <label>
                     Auto-close vault
                     <input type="checkbox" role="switch" bind:checked={autoClose} />
@@ -62,6 +76,10 @@
 </dialog>
 
 <style>
+    article {
+        max-width: 500px;
+    }
+
     header {
         display: flex;
         justify-content: space-between;

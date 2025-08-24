@@ -5,7 +5,7 @@
     import { showSettings, vaultPath } from './stores.svelte';
     import { onMount } from 'svelte';
     import { WindowGetSize, WindowIsMaximised, WindowSetSize } from '$wails/runtime/runtime';
-    import { STORAGE_KEY_WIN_SIZE } from './util.svelte';
+    import { STORAGE_KEY_THEME, STORAGE_KEY_WIN_SIZE } from './util.svelte';
 
     let windowInitFinished = false;
 
@@ -75,8 +75,16 @@
         lastSize = await WindowGetSize();
     }
 
+    function initTheme() {
+        const storedTheme = localStorage.getItem(STORAGE_KEY_THEME) || '';
+
+        const body = document.querySelector('body');
+        body.dataset.theme = storedTheme;
+    }
+
     onMount(() => {
         initWindow();
+        initTheme();
     });
 </script>
 

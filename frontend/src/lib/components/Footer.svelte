@@ -15,7 +15,7 @@
     }
 </script>
 
-<footer data-theme="dark">
+<footer>
     <nav>
         <ul>
             <li>
@@ -50,7 +50,10 @@
 
 <style>
     footer {
-        border-top: 3px solid var(--pico-contrast);
+        --pico-tooltip-background-color: var(--pico-background-color);
+        --pico-tooltip-color: var(--pico-contrast);
+
+        border-top: 3px solid var(--nav-fg-color);
 
         & nav {
             & ul {
@@ -61,12 +64,13 @@
                 padding: calc(var(--pico-nav-element-spacing-vertical) * 0.5) calc(var(--pico-nav-element-spacing-horizontal) * 0.5);
 
                 & small {
-                    color: var(--pico-contrast);
+                    color: var(--nav-fg-color);
                 }
             }
         }
 
         & a {
+            color: var(--nav-fg-color);
             text-decoration: none;
         }
     }

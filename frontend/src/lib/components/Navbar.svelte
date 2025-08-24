@@ -97,7 +97,7 @@
     });
 </script>
 
-<nav data-theme="dark">
+<nav>
     <ul>
         <li>
             {@html avdaIc}
@@ -107,7 +107,7 @@
 
     <ul class="filename">
         <li>
-            <a href="##" class="contrast" onclick={closeFile}>
+            <a href="##" onclick={closeFile}>
                 {$vaultPath?.split(/[\\/]/).at(-1) ?? 'filename'}
             </a>
         </li>
@@ -115,12 +115,12 @@
 
     <ul>
         <li>
-            <a href="##" class="contrast" data-tooltip="Search" data-placement="bottom" onclick={toggleSearch}>
+            <a href="##" data-tooltip="Search" data-placement="bottom" onclick={toggleSearch}>
                 {@html searchIc}
             </a>
         </li>
         <li>
-            <a href="##" class="contrast" data-tooltip="Groups" data-placement="bottom" onclick={toggleGroups}>
+            <a href="##" data-tooltip="Groups" data-placement="bottom" onclick={toggleGroups}>
                 {@html groupsIc}
             </a>
         </li>
@@ -130,7 +130,7 @@
             </Dropdown>
         </li>
         <li>
-            <a href="##" class="contrast" data-tooltip="Close Vault" data-placement="bottom" onclick={closeFile}>
+            <a href="##" data-tooltip="Close Vault" data-placement="bottom" onclick={closeFile}>
                 {@html closeFileIc}
             </a>
         </li>
@@ -139,6 +139,9 @@
 
 <style>
     nav {
+        --pico-tooltip-background-color: var(--pico-background-color);
+        --pico-tooltip-color: var(--pico-contrast);
+
         /* 
         Why I have to account for the intentional overflow is beyond me.
         see: https://picocss.com/docs/nav#overflow
@@ -154,8 +157,8 @@
         justify-content: end;
     }
 
-    li strong {
-        color: var(--pico-contrast);
+    li > strong, a {
+        color: var(--nav-fg-color);
     }
 
     a:hover {
