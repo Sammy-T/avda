@@ -3,6 +3,7 @@
 :root {
     color-scheme: light dark;
     --bg: url('/src/assets/images/bg.webp');
+    --nav-fg-color: #dfe3eb;
 }
 
 @media (prefers-color-scheme: dark) {
