@@ -139,6 +139,9 @@
 
 <style>
     nav {
+        --pico-tooltip-background-color: var(--pico-background-color);
+        --pico-tooltip-color: var(--pico-contrast);
+
         /* 
         Why I have to account for the intentional overflow is beyond me.
         see: https://picocss.com/docs/nav#overflow
