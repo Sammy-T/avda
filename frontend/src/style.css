@@ -7,9 +7,13 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    body[data-theme=""] {
         --bg: url('/src/assets/images/bg_dark.webp');
     }
+}
+
+body[data-theme="dark"] {
+    --bg: url('/src/assets/images/bg_dark.webp');
 }
 
 html, body {
