@@ -53,7 +53,7 @@
         <form onsubmit={(ev) => ev.preventDefault()} bind:this={form}>
             <div class="fields">
                 <label for="theme">Theme</label>
-                <select name="theme" bind:value={theme} oninput={onThemeSelect}>
+                <select id="theme" name="theme" bind:value={theme} oninput={onThemeSelect}>
                     <option value="">System</option>
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
