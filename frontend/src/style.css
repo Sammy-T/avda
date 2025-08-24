@@ -1,5 +1,16 @@
 @import '@picocss/pico/css/pico.min.css';
 
+:root {
+    color-scheme: light dark;
+    --bg: url('/src/assets/images/bg.webp');
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: url('/src/assets/images/bg_dark.webp');
+    }
+}
+
 html, body {
     height: 100%;
 }
@@ -8,7 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     overscroll-behavior: none;
-    background-image: url('/src/assets/images/bg.webp');
+    background-image: var(--bg);
     background-size: cover;
 }
 
