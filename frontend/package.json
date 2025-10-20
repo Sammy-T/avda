@@ -12,6 +12,6 @@
     "@picocss/pico": "^2.0.6",
     "@sveltejs/vite-plugin-svelte": "^6.1.0",
     "svelte": "^5.39.8",
-    "vite": "^7.1.5"
+    "vite": "^7.1.11"
   }
 }
