@@ -44,7 +44,7 @@
     }));
 
     /**
-     * @param event {KeyboardEvent}
+     * @param {KeyboardEvent} event
      */
     function onKeyEvent(event) {
         if(filteredItems.length === 0 || !event.ctrlKey) return;

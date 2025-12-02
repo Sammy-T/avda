@@ -30,7 +30,7 @@
     }
 
     /**
-     * @param event {Event}
+     * @param {Event} event
      */
     function selectRecent(event) {
         event.preventDefault();

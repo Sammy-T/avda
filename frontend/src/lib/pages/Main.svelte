@@ -32,7 +32,7 @@
 
     /**
      * Responds to key events on the search input.
-     * @param event {KeyboardEvent}
+     * @param {KeyboardEvent} event
      */
     function onSearchInputKey(event) {
         event.preventDefault();
@@ -42,7 +42,7 @@
 
     /**
      * Updates the tweened store for the countdown.
-     * @param ttn {number} - The time until the next OTP refresh
+     * @param {number} ttn - The time until the next OTP refresh
      */
     async function updateCountdown(ttn) {
         // Immediately update to the current time-til-next value
