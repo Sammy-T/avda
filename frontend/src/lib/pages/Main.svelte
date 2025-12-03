@@ -11,6 +11,9 @@
     import { GetTTN } from '$wails/go/main/App';
     import { closeFile, STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME } from '$lib/util.svelte';
 
+    /** Matches alphanumeric and `_` characters. */
+    const charRe = /^\w$/i
+
     const countdown = new Tween(30000);
     let timeoutId;
 
@@ -25,6 +28,20 @@
     $effect(() => {
         if($displaySearch) searchInput?.focus();
     });
+
+    /**
+     * Responds to key events on the document.
+     * @param {KeyboardEvent} event
+     */
+    function onKey(event) {
+        // Display the search input if a valid key is pressed
+        // while the search input isn't already displayed.
+        if($displaySearch) return;
+        if(event.shiftKey || event.ctrlKey || event.metaKey || event.altKey || !charRe.test(event.key)) return;
+
+        $displaySearch = true;
+        $search = event.key;
+    }
 
     function onSearchSubmit() {
         $displaySearch = false;
@@ -72,6 +89,8 @@
         clearTimeout(timeoutId);
     });
 </script>
+
+<svelte:document onkeyup={onKey} />
 
 <header>
     <Navbar />
