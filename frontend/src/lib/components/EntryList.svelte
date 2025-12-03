@@ -44,7 +44,7 @@
     }));
 
     /**
-     * @param event {KeyboardEvent}
+     * @param {KeyboardEvent} event
      */
     function onKeyEvent(event) {
         if(filteredItems.length === 0 || !event.ctrlKey) return;
@@ -63,7 +63,7 @@
     EventsOn('onCodesUpdated', (entryCodes) => $items = entryCodes);
 </script>
 
-<svelte:document on:keyup={onKeyEvent} />
+<svelte:document onkeyup={onKeyEvent} />
 
 {#if filteredItems.length === 0}
     <div id="empty">
