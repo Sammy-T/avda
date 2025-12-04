@@ -23,6 +23,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     overscroll-behavior: none;
     background-image: var(--bg);
     background-size: cover;
