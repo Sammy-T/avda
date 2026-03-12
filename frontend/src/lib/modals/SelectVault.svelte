@@ -7,7 +7,7 @@
     import { releaseUrl, vaultPath } from '$lib/stores.svelte';
     import { onMount } from 'svelte';
 
-    let respError = $state(false);
+    let respError = $state('');
 
     /** @type {String} */
     let selected = $state();
@@ -17,7 +17,7 @@
 
     function onSelect() {
         pwdInput.focus();
-        respError = false;
+        respError = '';
     }
 
     function onVisibilityChange() {
@@ -32,7 +32,7 @@
     async function onSubmit(event) {
         event.preventDefault();
 
-        respError = false;
+        respError = '';
 
         // @ts-ignore
         const formData = new FormData(event.target);
@@ -46,7 +46,7 @@
 
         if(resp.status !== 'success') {
             console.error(resp.message);
-            respError = true;
+            respError = resp.message;
             return;
         }
 
@@ -75,7 +75,7 @@
             <small>Leave blank for unencrypted vault files.</small>
 
             {#if respError}
-                <small class="warning">Unable to open vault.</small>
+                <small class="warning">{respError}</small>
             {/if}
 
             <button>Unlock</button>
