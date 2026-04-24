@@ -13,6 +13,7 @@
     /** @type {Props} */
     let { item } = $props();
 
+    // svelte-ignore state_referenced_locally
     let { entry } = item;
 
     let copyMsg = $state(null);
@@ -76,7 +77,7 @@
     article {
         margin: 0;
         display: grid;
-        grid-template-columns: 11.5% 1fr min-content;
+        grid-template-columns: calc(11.5% * min(var(--ui-scale, 1))) 1fr min-content;
         align-items: center;
         gap: calc(var(--pico-spacing) * 0.75);
         border-left: 4px solid var(--group-color);

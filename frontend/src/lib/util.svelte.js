@@ -7,8 +7,12 @@ export const STORAGE_KEY_RECENT_FILES = 'avda:recent-files';
 export const STORAGE_KEY_ORDER = 'avda:sort-order';
 export const STORAGE_KEY_SHOW_GROUPS = 'avda:display-groups';
 export const STORAGE_KEY_THEME = 'avda:theme';
+export const STORAGE_KEY_UI_SCALE = 'avda:scale';
 export const STORAGE_KEY_AUTO_CLOSE = 'avda:auto-close';
 export const STORAGE_KEY_AUTO_CLOSE_TIME = 'avda:auto-close-time';
+
+export const MIN_FONT = 75;
+export const MAX_FONT = 135;
 
 /**
  * Attempts to format the code's characters into 
@@ -106,4 +110,12 @@ export function getGroupColor(uuid) {
     // Use the hash to determine the hue (0-360)
     const hue = Math.abs(hash % 360);
     return `hsl(${hue}, 70%, 60%)`;
+}
+
+export function getCurrentFontScale() {
+    const root = document.documentElement;
+    const style = getComputedStyle(root);
+    const fontSize = Number(style.getPropertyValue('--pico-font-size').replace('%', ''));
+
+    return Math.round(fontSize);
 }
