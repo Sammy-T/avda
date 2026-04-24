@@ -1,7 +1,7 @@
 <script>
     import closeIc from '$assets/images/x.svg?raw';
     import { showSettings } from '$lib/stores.svelte';
-    import { MAX_FONT, MIN_FONT, STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME, STORAGE_KEY_UI_SCALE, STORAGE_KEY_THEME } from '$lib/util.svelte';
+    import { MAX_FONT, MIN_FONT, STORAGE_KEY_AUTO_CLOSE, STORAGE_KEY_AUTO_CLOSE_TIME, STORAGE_KEY_UI_SCALE, STORAGE_KEY_THEME, getCurrentFontScale } from '$lib/util.svelte';
 
     let theme = $state(localStorage.getItem(STORAGE_KEY_THEME) || '');
     let fontScale = $state(Number(localStorage.getItem(STORAGE_KEY_UI_SCALE)) || getCurrentFontScale());
@@ -14,16 +14,11 @@
     $effect(() => {
         // Pico uses a percent-based root font size
         const root = document.documentElement;
+        const scale = fontScale / 100;
+        
         root.style.setProperty('--pico-font-size', `${fontScale}%`);
+        root.style.setProperty('--ui-scale', scale.toString());
     });
-
-    function getCurrentFontScale() {
-        const root = document.documentElement;
-        const style = getComputedStyle(root);
-        const fontSize = Number(style.getPropertyValue('--pico-font-size').replace('%', ''));
-
-        return Math.round(fontSize);
-    }
 
     function onThemeSelect(ev) {
         const body = document.querySelector('body');

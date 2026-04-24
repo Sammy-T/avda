@@ -111,3 +111,11 @@ export function getGroupColor(uuid) {
     const hue = Math.abs(hash % 360);
     return `hsl(${hue}, 70%, 60%)`;
 }
+
+export function getCurrentFontScale() {
+    const root = document.documentElement;
+    const style = getComputedStyle(root);
+    const fontSize = Number(style.getPropertyValue('--pico-font-size').replace('%', ''));
+
+    return Math.round(fontSize);
+}

@@ -5,7 +5,7 @@
     import { showSettings, vaultPath } from './stores.svelte';
     import { onMount } from 'svelte';
     import { WindowGetSize, WindowIsMaximised, WindowSetSize } from '$wails/runtime/runtime';
-    import { STORAGE_KEY_UI_SCALE, STORAGE_KEY_THEME, STORAGE_KEY_WIN_SIZE } from './util.svelte';
+    import { STORAGE_KEY_UI_SCALE, STORAGE_KEY_THEME, STORAGE_KEY_WIN_SIZE, getCurrentFontScale } from './util.svelte';
 
     let windowInitFinished = false;
 
@@ -82,18 +82,29 @@
         body.dataset.theme = storedTheme;
     }
 
-    function initFontSize() {
-        const storedFontScale = Number(localStorage.getItem(STORAGE_KEY_UI_SCALE));
-        if(!storedFontScale) return;
-
+    function initScaling() {
         const root = document.documentElement;
+
+        let scale;
+
+        const storedFontScale = Number(localStorage.getItem(STORAGE_KEY_UI_SCALE));
+        
+        if(!storedFontScale) {
+            scale = getCurrentFontScale() / 100;
+            root.style.setProperty('--ui-scale', scale.toString());
+            return;
+        }
+
+        scale = storedFontScale / 100;
+
         root.style.setProperty('--pico-font-size', `${storedFontScale}%`);
+        root.style.setProperty('--ui-scale', scale.toString());
     }
 
     onMount(() => {
         initWindow();
         initTheme();
-        initFontSize();
+        initScaling();
     });
 </script>
 

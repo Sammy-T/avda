@@ -83,7 +83,7 @@
         padding: calc(var(--pico-spacing) * 1.5);
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: calc(var(--pico-spacing) * 2);
+        gap: calc(var(--pico-spacing) * min(var(--ui-scale), 1) * 2);
     }
 
     #empty {
