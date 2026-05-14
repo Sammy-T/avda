@@ -79,15 +79,6 @@ func (a *App) OpenVault(filePath string, password string) Response {
 		vaultData, err = avdu.ReadAndDecryptVaultFile(filePath, password)
 	}
 
-	if vaultData.Version == 0 {
-		// The vault struct is likely empty as the version should be at least 1.
-		// The parsed file either contained an empty vault or valid JSON which
-		// didn't contain a vault.
-		//
-		// TODO: This check should occur on the avdu package.
-		err = fmt.Errorf("invalid or empty vault")
-	}
-
 	var response Response
 
 	if err != nil {
