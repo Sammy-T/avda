@@ -10,8 +10,8 @@
   },
   "devDependencies": {
     "@picocss/pico": "^2.0.6",
-    "@sveltejs/vite-plugin-svelte": "^7.0.0",
-    "svelte": "^5.56.4",
-    "vite": "^8.1.2"
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "svelte": "^5.56.8",
+    "vite": "^8.1.5"
   }
 }
