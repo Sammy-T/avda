@@ -3,7 +3,7 @@ module github.com/sammy-t/avda
 go 1.25.0
 
 require (
-	github.com/sammy-t/avdu v0.5.1
+	github.com/sammy-t/avdu v0.5.2
 	github.com/wailsapp/wails/v2 v2.13.0
 )
 
@@ -32,10 +32,10 @@ require (
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/wailsapp/go-webview2 v1.0.23 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
-	golang.org/x/crypto v0.53.0 // indirect
-	golang.org/x/net v0.55.0 // indirect
-	golang.org/x/sys v0.46.0 // indirect
-	golang.org/x/text v0.38.0 // indirect
+	golang.org/x/crypto v0.54.0 // indirect
+	golang.org/x/net v0.56.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
 )
 
 // replace github.com/wailsapp/wails/v2 v2.9.1 => C:\Users\Sammy\go\pkg\mod
